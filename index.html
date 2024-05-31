@@ -1013,10 +1013,10 @@
                     if (trimmedLine.endsWith(';')) {
                         currentSQL += line + '\n';
                         if (isQuerySQL(currentSQL)) {
-                            querySQL += commentsBuffer + emptyLinesBuffer + currentSQL;
+                            querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
                             previousIsQuery = true;
                         } else {
-                            schemaSQL += commentsBuffer + emptyLinesBuffer + currentSQL;
+                            schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
                             previousIsQuery = false;
                         }
                         currentSQL = '';
@@ -1030,9 +1030,9 @@
                 // 處理剩餘的註釋和空行
                 if (commentsBuffer || emptyLinesBuffer || currentSQL) {
                     if (previousIsQuery === true) {
-                        querySQL += commentsBuffer + emptyLinesBuffer + currentSQL;
+                        querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
                     } else {
-                        schemaSQL += commentsBuffer + emptyLinesBuffer + currentSQL;
+                        schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
                     }
                 }
 
