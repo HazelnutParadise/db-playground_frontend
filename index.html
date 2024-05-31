@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SQL練習神器">
+    <meta name="description"
+        content="SQL語法練習神器，無長度限制且具備人性化貼心設計。無論您是資料庫新手還是經驗豐富的開發者，DB Playground 都是您理想的實驗夥伴。立即嘗試，開啟您的資料庫探索之旅！">
     <title>DB Playground - 榛果繽紛樂</title>
     <link rel="icon" href="dbPlayground.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -173,7 +174,7 @@
         }
 
         .result-window {
-            min-height: 200px;
+            min-height: 300px;
             height: auto;
             background-color: #f6f6f6;
             border: 1px solid #e0e0e0;
@@ -1220,8 +1221,9 @@
     }
 
     function removeHtmlComments(html) {
-        // 使用正则表达式移除HTML注释
-        let cleanHTML = html.replace(/<!--[\s\S]*?-->/g, '');
+        // 使用 RegExp 構造函數來創建正則表達式
+        let regex = new RegExp('<!--[\\s\\S]*?-->', 'g');
+        let cleanHTML = html.replace(regex, '');
         return cleanHTML;
     }
 </script>
