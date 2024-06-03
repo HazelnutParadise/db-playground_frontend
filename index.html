@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -517,7 +517,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="font-slider-container">
+                        <div class="font-slider-container" lang="zh-Hant-TW">
                             <label for="fontSlider">
                                 <h5>字型大小:<span id="nowFontSize"></span></h5>
                             </label>
@@ -527,24 +527,24 @@
                             aria-label="Fiddle Title"> -->
                         <!-- <textarea class="form-control mb-2" placeholder="Fiddle Description"
                             aria-label="Fiddle Description"></textarea> -->
-                        <div class="form-check form-switch mt-2 mb-3">
+                        <div class="form-check form-switch mt-2 mb-3" lang="zh-Hant-TW">
                             <input class="form-check-input" type="checkbox" id="miniMap" checked>
                             <label class="form-check-label" for="privateFiddle">編輯器小地圖(Minimap)</label>
                         </div>
                         <!-- <span class="pro-badge">PRO</span> -->
-                        <div style="display: flex;height: 75px;justify-content: center;">
+                        <div style="display: flex;height: 75px;justify-content: center;" lang="zh-Hant-TW">
                             <button class="inSidebar-btn" id="tempSave-btn"
                                 style="font-size: 13px;margin-right: 2px;">暫存至 Cookie</button>
                             <button class="inSidebar-btn" id="delTempSave-btn" style="font-size: 13px;">刪除 Cookie
                                 暫存</button>
                         </div>
-                        <div id="importExportSQL">
+                        <div id="importExportSQL" lang="zh-Hant-TW">
                             <button class="inSidebar-btn" id="importSQL-btn">匯入 .sql 或 .txt 檔</button>
                             <button class="inSidebar-btn" id="exportSQL-btn">匯出 .sql 檔</button>
                         </div>
 
                         <!-- 會員相關 -->
-                        <div>
+                        <div lang="zh-Hant-TW">
                             <div id="user-info" style=" width: 100%;display: none;flex-direction: column;">
                                 目前登入身份：
                                 <strong id="user"
@@ -835,7 +835,7 @@
 </script>
 
 <script>
-    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id) VALUES (1);\nINSERT INTO example (id) VALUES (2);`
+    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id, data) VALUES (1, "I L❤️VE DB Playground!!!");\nINSERT INTO example (id, data) VALUES (2, "Easy, free, no limits as you see.");`
     let defaultQuerySql = `SELECT * FROM example;`
     // 恢復暫存的數據
     const tempSaveCookie = getCookie('dbPlayground');
