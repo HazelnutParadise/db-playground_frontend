@@ -835,7 +835,7 @@
 </script>
 
 <script>
-    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id, data) VALUES (1, "I L❤️VE DB Playground!!!");\nINSERT INTO example (id, data) VALUES (2, "Easy, free, no limits as you see.");`
+    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id, data) VALUES (1, 'I L❤️VE DB Playground!!!');\nINSERT INTO example (id, data) VALUES (2, 'Easy, free, no limits as you see.');`
     let defaultQuerySql = `SELECT * FROM example;`
     // 恢復暫存的數據
     const tempSaveCookie = getCookie('dbPlayground');
