@@ -39,14 +39,21 @@
             --background-color: #e9e1d4;
             --text-color: black;
             --pannel-background-color: #ffffff;
+            --table-border-color: #000000;
         }
 
         [data-theme="dark"] {
             --background-color: #121212;
             --text-color: #ffffff;
             --pannel-background-color: #002937;
+            --table-border-color: #ffffff;
             a {
                 color: #90d201;
+            }
+
+            .container {
+                background-color: #002937 !important;
+                color: white !important;
             }
 
             .inSidebar-btn,
@@ -78,17 +85,20 @@
             #importSQL-btn:hover,
             #exportSQL-btn:hover {
                 background-color: #121212;
-                border: solid 2px #ffc100;
+                border: solid 1.2px #ffc100;
                 color: white;
             }
 
             .result-window, .ad-container {
-                background-color: #B6B6B6;
+                background-color: #121212;
                 color: white;
+            }
+            .result-window .table-container {
+                background-color: #121212;
             }
             th {
                 background-color: #08c4e5;
-                /* color: white; */
+                color: black;
             }
 
             footer {
@@ -402,19 +412,19 @@
         table {
             min-width: 100%;
             font-size: larger;
-            border: solid 1px black;
+            border: solid 1px var(--table-border-color);
             border-collapse: collapse;
             /* 确保边框样式不丢失 */
         }
 
         th {
             background-color: #f8eeb9;
-            border: solid 1px black;
+            border: solid 1px var(--table-border-color);
             padding: 5px;
         }
 
         td {
-            border: solid 1px black;
+            border: solid 1px var(--table-border-color);
             padding: 5px;
             min-width: 150px;
         }
@@ -608,9 +618,8 @@
                         <!-- <span class="pro-badge">PRO</span> -->
                         <div style="display: flex;height: 75px;justify-content: center;" lang="zh-Hant-TW">
                             <button class="inSidebar-btn" id="tempSave-btn"
-                                style="font-size: 13px;margin-right: 2px;">暫存至 Cookie</button>
-                            <button class="inSidebar-btn" id="delTempSave-btn" style="font-size: 13px;">刪除 Cookie
-                                暫存</button>
+                                style="font-size: 15px;margin-right: 2px;">暫存至<br>瀏覽器</button>
+                            <button class="inSidebar-btn" id="delTempSave-btn" style="font-size: 15px;">刪除<br>瀏覽器暫存</button>
                         </div>
                         <div id="importExportSQL" lang="zh-Hant-TW">
                             <button class="inSidebar-btn" id="importSQL-btn">匯入 .sql 或 .txt 檔</button>
@@ -886,7 +895,7 @@
 <script>
     function showSnackbar(contentText) {
         const snackbar = document.getElementById('snackbar');
-        snackbar.textContent = contentText;
+        snackbar.innerHTML = contentText;
 
         // 動態計算Snackbar的位置
         const snackbarWidth = snackbar.offsetWidth;
@@ -904,7 +913,7 @@
         // 設置新的定時器
         snackbar.hideTimeout = setTimeout(function () {
             snackbar.classList.remove('show');
-        }, 2000);
+        }, 3500);
     }
 </script>
 
@@ -913,7 +922,15 @@
     let defaultQuerySql = `SELECT * FROM example;`
     // 恢復暫存的數據
     const tempSaveCookie = getCookie('dbPlayground');
-    if (tempSaveCookie) {
+    const savedSchemaSql = localStorage.getItem('schemaSql');
+    const savedQuerySql = localStorage.getItem('querySql');
+    if (savedSchemaSql) {
+        defaultSchemaSql = savedSchemaSql;
+    }
+    if (savedQuerySql) {
+        defaultQuerySql = savedQuerySql;
+    }
+    if (!(savedSchemaSql || savedQuerySql) && (tempSaveCookie)) {
         defaultSchemaSql = tempSaveCookie.schemaSql;
         defaultQuerySql = tempSaveCookie.querySql;
     }
@@ -1021,11 +1038,15 @@
         const schemaSql = schemaEditor.getValue();
         const querySql = queryEditor.getValue();
         const cookieData = getCookie('dbPlayground');
+        const storageData = {
+            schemaSql: localStorage.getItem('schemaSql'),
+            querySql: localStorage.getItem('querySql')
+        };
         const data = {
             schemaSql: schemaSql,
             querySql: querySql
         };
-        if (!cookieData || data.querySql != cookieData.querySql || data.schemaSql != cookieData.schemaSql) {
+        if ((!cookieData || data.querySql != cookieData.querySql || data.schemaSql != cookieData.schemaSql) && (!storageData || data.querySql != storageData.querySql || data.schemaSql != storageData.schemaSql)) {
             e.preventDefault();
             e.returnValue = '';
         }
@@ -1035,12 +1056,10 @@
     tempSave_btn.addEventListener('click', function () {
         const schemaSql = schemaEditor.getValue();
         const querySql = queryEditor.getValue();
-        const data = {
-            schemaSql: schemaSql,
-            querySql: querySql
-        };
-        setCookie('dbPlayground', data, 30);
-        alert('已暫存至 Cookie\n下次載入本頁時將自動帶入（期限30天）\n\n注意！此功能受 Cookie 長度限制，若內容較長則不保證成功！');
+        localStorage.setItem('schemaSql', schemaSql);
+        localStorage.setItem('querySql', querySql);
+        
+        alert('已暫存至瀏覽器\n下次載入本頁時將自動帶入。\n\n此功能使用 Local Storage，幾乎無期限或長度限制🤗！');
     });
 
     const delTempSave_btn = document.getElementById('delTempSave-btn');
@@ -1049,7 +1068,9 @@
         const confirmDelete = confirm('確定要刪除暫存嗎？');
         if (confirmDelete) {
             dropCookie('dbPlayground');
-            alert('已刪除 Cookie 暫存');
+            alert('已刪除暫存');
+            localStorage.removeItem('schemaSql');
+            localStorage.removeItem('querySql');
         }
     });
 </script>
@@ -1132,6 +1153,7 @@
                 if (!confirm("編輯區未儲存的SQL指令將被覆蓋！\n確定匯入檔案嗎？")) return;
                 schemaEditor.setValue(schemaSQL.trim());
                 queryEditor.setValue(querySQL.trim());
+                showSnackbar(`已匯入 ${file.name}<br><br>共取得 ${lines.length} 行 SQL 指令`);
             };
             reader.readAsText(file);
         };
@@ -1149,6 +1171,7 @@
         a.download = 'db-playground.sql';
         a.click();
         URL.revokeObjectURL(url);
+        showSnackbar('已匯出 SQL 檔至下載資料夾');
     });
 </script>
 
