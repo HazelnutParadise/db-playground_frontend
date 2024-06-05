@@ -40,6 +40,7 @@
             --text-color: black;
             --pannel-background-color: #ffffff;
             --table-border-color: #000000;
+            --hazelPoints-background-color: rgb(212, 235, 246);
         }
 
         [data-theme="dark"] {
@@ -47,6 +48,7 @@
             --text-color: #ffffff;
             --background-color: #002937;
             --table-border-color: #ffffff;
+            --hazelPoints-background-color: #8eb142;
             a {
                 color: #90d201;
             }
@@ -56,16 +58,21 @@
                 color: white !important;
             }
 
-            .inSidebar-btn,
-            .run-btn {
+            .inSidebar-btn {
                 background-color: #127c00;
                 border: 1px solid #127c00;
             }
-            .inSidebar-btn:hover,
-            .run-btn:hover {
+            .inSidebar-btn:hover{
                 background-color: #0f6b00;
             }
-
+            .run-btn {
+                background-color: #08c4e5;
+                border: 1px solid #08c4e5;
+            }
+            .run-btn:hover {
+                background-color: #07b3d4;
+            }
+            
             .small-button {
                 background-color: #121212;
                 border-color: #028fee;
@@ -97,8 +104,8 @@
                 background-color: #121212;
             }
             th {
-                background-color: #08c4e5;
-                color: black;
+                background-color: #127c00;
+                color: white;
             }
 
             footer {
@@ -254,7 +261,7 @@
         }
 
         .result-window {
-            min-height: 300px;
+            min-height: 350px;
             height: auto;
             background-color: #f6f6f6;
             border: 1px solid #e0e0e0;
@@ -629,11 +636,10 @@
                         <!-- 會員相關 -->
                         <div lang="zh-Hant-TW">
                             <div id="user-info" style=" width: 100%;display: none;flex-direction: column;">
-                                目前登入身份：
                                 <strong id="user"
                                     style="width: 100%; font-size: 18px;text-align: center;margin-bottom: 0;"></strong>
                                 <div id="HazelPoints"
-                                    style="width: 100%;font-size: 15px; color: #495057;display: flex;flex-direction: column; align-items: center;margin: 5px 0px;border: solid 0px black;border-radius: 6px;padding: 8px;background-color:rgb(212, 235, 246);">
+                                    style="width: 100%;font-size: 15px; color: #495057;display: flex;flex-direction: column; align-items: center;margin: 5px 0px;border: solid 0px black;border-radius: 6px;padding: 8px;background-color:var(--hazelPoints-background-color);">
                                     HazelPoints:<span id="points">0</span>
                                     <button class="small-button" id="getMoreHazelPoints">獲取更多</button>
                                 </div>
