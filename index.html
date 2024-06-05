@@ -41,6 +41,8 @@
             --pannel-background-color: #ffffff;
             --table-border-color: #000000;
             --hazelPoints-background-color: rgb(212, 235, 246);
+            --hazelPoints-background-border: solid 0px black;
+            --hazelPoints-text-color: #495057;
         }
 
         [data-theme="dark"] {
@@ -48,7 +50,10 @@
             --text-color: #ffffff;
             --background-color: #002937;
             --table-border-color: #ffffff;
-            --hazelPoints-background-color: #8eb142;
+            --hazelPoints-background-color: #121212;
+            --hazelPoints-background-border: solid 1px #8eb142;
+            --hazelPoints-text-color: #8eb142;
+            
             a {
                 color: #90d201;
             }
@@ -59,7 +64,7 @@
             }
 
             .inSidebar-btn {
-                background-color: #127c00;
+                background-color: #121212;
                 border: 1px solid #127c00;
             }
             .inSidebar-btn:hover{
@@ -71,6 +76,22 @@
             }
             .run-btn:hover {
                 background-color: #07b3d4;
+            }
+
+            #delTempSave-btn {
+                background-color: #121212;
+                border-color: #dc3545;
+                color: white;
+            }
+
+            #login-logout-btn {
+                background-color: #121212;
+                border-color: #646fe8;
+                border-width: 2px;
+                color: white;
+            }
+            #login-logout-btn:hover {
+                background-color: #646fe8;
             }
             
             .small-button {
@@ -88,11 +109,12 @@
             #exportSQL-btn {
                 background-color: #121212;
                 color: white;
+                border-width: 1px;
             }
             #importSQL-btn:hover,
             #exportSQL-btn:hover {
                 background-color: #121212;
-                border: solid 1.2px #ffc100;
+                border-color: #ffc100;
                 color: white;
             }
 
@@ -639,7 +661,7 @@
                                 <strong id="user"
                                     style="width: 100%; font-size: 18px;text-align: center;margin-bottom: 0;"></strong>
                                 <div id="HazelPoints"
-                                    style="width: 100%;font-size: 15px; color: #495057;display: flex;flex-direction: column; align-items: center;margin: 5px 0px;border: solid 0px black;border-radius: 6px;padding: 8px;background-color:var(--hazelPoints-background-color);">
+                                    style="width: 100%;font-size: 15px; color: var(--hazelPoints-text-color);display: flex;flex-direction: column; align-items: center;margin: 5px 0px;border: var(--hazelPoints-background-border);border-radius: 6px;padding: 8px;background-color:var(--hazelPoints-background-color);">
                                     HazelPoints:<span id="points">0</span>
                                     <button class="small-button" id="getMoreHazelPoints">獲取更多</button>
                                 </div>
