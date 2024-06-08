@@ -164,8 +164,6 @@
 
         .inSidebar-btn,
         .run-btn {
-            background-color: rgba(137, 84, 24, 0.804);
-            border: 1px solid rgba(137, 84, 24, 0.804);
             /* Add border */
             color: white;
             padding: 8px 0px;
@@ -181,11 +179,27 @@
             background-size: 100% 100%;
             transition: background-position 0.5s;
         }
-
-        .inSidebar-btn:hover,
+        .run-btn {
+            background-color: rgba(137, 84, 24, 0.804);
+            border: 1px solid rgba(137, 84, 24, 0.804);
+        }
         .run-btn:hover {
             background-color: #875d2c;
-            background-size: 0px 0px;
+        }
+        .inSidebar-btn {
+            background-color: #127c00;
+            border: 1px solid #127c00;
+        }
+        
+        .inSidebar-btn:hover {
+            background-color: #0f6b00;
+            /* background-size: 0px 0px; */
+            transition: background-position 0.5s;
+        }
+
+        .run-btn:hover {
+            background-color: #875d2c;
+            /* background-size: 0px 0px; */
             transition: background-position 0.5s;
         }
 
@@ -216,7 +230,7 @@
 
         .small-button {
             background-color: #f6f6f6;
-            border-color: #e0e0e0;
+            border-color: #ffc100;
             color: black;
             /* padding: 2px 6px; */
             border-radius: 4px;
@@ -420,8 +434,8 @@
         }
 
         #back-to-top:hover {
-            background-color: black;
-            color: white;
+            background-color: #ffc100;
+            /* color: white; */
         }
 
         .result-window .table-container {
