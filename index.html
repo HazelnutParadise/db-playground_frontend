@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="SQL語法練習神器，無長度限制且具備人性化貼心設計。無論您是資料庫新手還是經驗豐富的開發者，DB Playground 都是您理想的實驗夥伴。立即嘗試，開啟您的資料庫探索之旅！">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SQL語法練習神器，無長度限制且具備人性化貼心設計。無論您是資料庫新手還是經驗豐富的開發者，DB Playground 都是您理想的實驗夥伴。立即嘗試，開啟您的資料庫探索之旅！"
+    />
     <title>DB Playground - 榛果繽紛樂</title>
-    <link rel="icon" href="dbPlayground.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="dbPlayground.ico" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/turndown@7.0.0/dist/turndown.js"></script>
     <script src="https://unpkg.com/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
@@ -18,680 +26,805 @@
     <script src="https://hazelnut-paradise.com/utils.js?v=3"></script>
 
     <style>
-        body,
-        html {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            width: 100vw;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            /* 等寬字體 */
-            font-family: monospace, Courier, 'Courier New';
+      body,
+      html {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        width: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        /* 等寬字體 */
+        font-family: monospace, Courier, "Courier New";
+      }
+
+      * {
+        transition: background-color 0.5s ease;
+      }
+
+      :root {
+        --background-color: #e9e1d4;
+        --text-color: black;
+        --pannel-background-color: #ffffff;
+        --table-border-color: #000000;
+        --hazelPoints-background-color: rgb(212, 235, 246);
+        --hazelPoints-background-border: solid 0px black;
+        --hazelPoints-text-color: #495057;
+      }
+
+      [data-theme="dark"] {
+        --pannel-background-color: #121212;
+        --text-color: #ffffff;
+        --background-color: #002937;
+        --table-border-color: #ffffff;
+        --hazelPoints-background-color: #121212;
+        --hazelPoints-background-border: solid 1px #8eb142;
+        --hazelPoints-text-color: #8eb142;
+
+        a {
+          color: #90d201;
         }
 
-        * {
-            transition: background-color 0.5s ease;
+        .container {
+          background-color: #002937 !important;
+          color: white !important;
         }
 
-        :root {
-            --background-color: #e9e1d4;
-            --text-color: black;
-            --pannel-background-color: #ffffff;
-            --table-border-color: #000000;
-            --hazelPoints-background-color: rgb(212, 235, 246);
-            --hazelPoints-background-border: solid 0px black;
-            --hazelPoints-text-color: #495057;
-        }
-
-        [data-theme="dark"] {
-            --pannel-background-color: #121212;
-            --text-color: #ffffff;
-            --background-color: #002937;
-            --table-border-color: #ffffff;
-            --hazelPoints-background-color: #121212;
-            --hazelPoints-background-border: solid 1px #8eb142;
-            --hazelPoints-text-color: #8eb142;
-            
-            a {
-                color: #90d201;
-            }
-
-            .container {
-                background-color: #002937 !important;
-                color: white !important;
-            }
-
-            .inSidebar-btn {
-                background-color: #121212;
-                border: 1px solid #127c00;
-            }
-            .inSidebar-btn:hover{
-                background-color: #0f6b00;
-            }
-            .run-btn {
-                background-color: #08c4e5;
-                border: 1px solid #08c4e5;
-            }
-            .run-btn:hover {
-                background-color: #07b3d4;
-            }
-
-            #delTempSave-btn {
-                background-color: #121212;
-                border-color: #dc3545;
-                color: white;
-            }
-
-            #login-logout-btn {
-                background-color: #121212;
-                border-color: #646fe8;
-                border-width: 2px;
-                color: white;
-            }
-            #login-logout-btn:hover {
-                background-color: #646fe8;
-            }
-            
-            .small-button {
-                background-color: #121212;
-                border-color: #028fee;
-                color: white;
-            }
-
-            select {
-                background-color: #121212;
-                color: white;
-            }
-
-            #importSQL-btn,
-            #exportSQL-btn {
-                background-color: #121212;
-                color: white;
-                border-width: 1px;
-            }
-            #importSQL-btn:hover,
-            #exportSQL-btn:hover {
-                background-color: #121212;
-                border-color: #ffc100;
-                color: white;
-            }
-
-            .result-window, .ad-container {
-                background-color: #121212;
-                color: white;
-            }
-            .result-window .table-container {
-                background-color: #121212;
-            }
-            th {
-                background-color: #127c00;
-                color: white;
-            }
-
-            footer {
-                color: #90d201;
-            }
-
-            #back-to-top:hover {
-                background-color: #ffc100;
-                color: black;
-            }
-        }
-
-        .container-fluid {
-            padding: 20px;
-        }
-
-        .panel {
-            background-color: var(--pannel-background-color);
-            border: 1px solid #dfe3e6;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .pro-badge {
-            background-color: #f6f8f9;
-            border: 1px solid #dfe3e6;
-            border-radius: 20px;
-            padding: 3px 10px;
-            font-size: 12px;
-            display: inline-block;
-            margin-left: 10px;
-        }
-
-        .inSidebar-btn,
-        .run-btn {
-            /* Add border */
-            color: white;
-            padding: 8px 0px;
-            font-size: 14px;
-            line-height: 1.5;
-            border-radius: 4px;
-            display: block;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 10px;
-            /* Add texture effect */
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
-            background-size: 100% 100%;
-            transition: background-position 0.5s;
-        }
-        .run-btn {
-            background-color: rgba(137, 84, 24, 0.804);
-            border: 1px solid rgba(137, 84, 24, 0.804);
-        }
-        .run-btn:hover {
-            background-color: #875d2c;
-        }
         .inSidebar-btn {
-            background-color: #127c00;
-            border: 1px solid #127c00;
+          background-color: #121212;
+          border: 1px solid #127c00;
         }
-        
+
         .inSidebar-btn:hover {
-            background-color: #0f6b00;
-            /* background-size: 0px 0px; */
-            transition: background-position 0.5s;
+          background-color: #0f6b00;
+        }
+
+        .run-btn {
+          background-color: #08c4e5;
+          border: 1px solid #08c4e5;
         }
 
         .run-btn:hover {
-            background-color: #875d2c;
-            /* background-size: 0px 0px; */
-            transition: background-position 0.5s;
-        }
-
-        .inSidebar-btn {
-            padding: 0px 11px;
+          background-color: #07b3d4;
         }
 
         #delTempSave-btn {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: white;
-        }
-
-        #delTempSave-btn:hover {
-            background-color: #c82333;
+          background-color: #121212;
+          border-color: #dc3545;
+          color: white;
         }
 
         #login-logout-btn {
-            background-color: #646fe8;
-            border-color: #646fe8;
-            color: white;
-            height: 50px;
+          background-color: #121212;
+          border-color: #646fe8;
+          border-width: 2px;
+          color: white;
         }
 
         #login-logout-btn:hover {
-            background-color: #3a3f9e;
+          background-color: #646fe8;
         }
 
         .small-button {
-            background-color: #f6f6f6;
-            border-color: #ffc100;
-            color: black;
-            /* padding: 2px 6px; */
-            border-radius: 4px;
-            text-decoration: none;
-            max-height: 28px;
-            height: 28px;
-            /* border: solid 1px rgb(79, 79, 79); */
+          background-color: #121212;
+          border-color: #028fee;
+          color: white;
         }
 
-        .discount-badge {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 5px;
-            border-radius: 4px;
-            font-size: 14px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .keyboard-shortcuts {
-            font-size: 14px;
-            color: #495057;
-            margin-bottom: 20px;
-        }
-
-        .ad-container {
-            background-color: #e9ecef;
-            border: 1px solid #dfe3e6;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 10px;
-        }
-
-        .ad-container img {
-            width: 100%;
-        }
-
-        .ad-text {
-            font-size: 14px;
-            color: #495057;
-            margin-top: 10px;
-        }
-
-        .trial-btn {
-            background-color: #17a2b8;
-            border-color: #17a2b8;
-            color: white;
-            padding: 10px 15px;
-            font-size: 14px;
-            line-height: 1.5;
-            border-radius: 4px;
-            display: block;
-            width: 100%;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .footer {
-            font-size: 12px;
-            color: #495057;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .result-window {
-            min-height: 350px;
-            height: auto;
-            background-color: #f6f6f6;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            padding: 10px;
-            overflow-x: hidden;
-            /* font-family: monospace; */
-            padding: 20px 25px;
-        }
-
-        .font-slider-container {
-            margin-bottom: 5px;
-            margin-top: 5px;
-        }
-
-        .font-slider {
-            width: 100%;
-        }
-
-        .sidebar-collapse i {
-            margin: 0px;
-            cursor: pointer;
-        }
-
-        .db-select {
-            margin-bottom: 20px;
-        }
-
-        .sidebar-content {
-            display: none;
-        }
-
-        .sidebar-expanded .sidebar-content {
-            display: block;
-        }
-
-        .sidebar-collapsed .sidebar-toggle {
-            display: block;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .sidebar-collapsed .sidebar-content {
-            display: none;
-        }
-
-        .sidebar-collapsed {
-            width: 55px;
-            /* Adjust the width of the collapsed sidebar */
-        }
-
-        .sidebar-expanded {
-            min-width: 265px;
-            width: 265px;
-            /* Adjust the width of the expanded sidebar */
-        }
-
-        #schema-editor,
-        #query-editor {
-            height: 600px;
-            max-width: 100%
-                /* 或其他希望的高度 */
-        }
-
-        .loader {
-            border: 5px solid #f3f3f3;
-            /* Light grey */
-            border-top: 3px solid #3498db00;
-            /* Blue */
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .running-btn {
-            pointer-events: none;
-            /* Disable button clicks when loading */
-        }
-
-        #editWindows {
-            flex-wrap: nowrap;
-        }
-
-        #editor1 {
-            margin-right: 2px;
-        }
-
-        #editor2 {
-            margin-left: 2px;
-        }
-
-        .editor {
-            width: 50%;
-            height: 100%;
-            padding-left: 10px;
-            padding-right: 10px;
-            margin-bottom: 10px;
-        }
-
-        .label {
-            /* display: flex;
-            flex-wrap: wrap; */
-            align-items: start;
-            /* margin-bottom: 10px; */
-        }
-
-        .label button {
-            margin: 0;
-            margin-bottom: 10px;
-            height: 100px;
-        }
-
-        #back-to-top {
-            position: fixed;
-            bottom: 10px;
-            left: 20px;
-            background-color: #f2e199;
-            color: black;
-            padding: 10px 0px;
-            border-radius: 4px;
-            text-decoration: none;
-            border: solid 1px rgb(79, 79, 79);
-        }
-
-        #back-to-top:hover {
-            background-color: #ffc100;
-            /* color: white; */
-        }
-
-        .result-window .table-container {
-            padding-left: 1px;
-            padding-right: 1px;
-            overflow-x: auto;
-            /* 使表格容器可以水平滚动 */
-            overflow-y: hidden;
-            /* 禁止垂直滚动 */
-            background-color: white;
-            margin-bottom: 10px;
-            /* 添加下边距以分隔多个表格 */
-            /* border: solid 1px black; */
-        }
-
-
-        table {
-            min-width: 100%;
-            font-size: larger;
-            border: solid 1px var(--table-border-color);
-            border-collapse: collapse;
-            /* 确保边框样式不丢失 */
-        }
-
-        th {
-            background-color: #f8eeb9;
-            border: solid 1px var(--table-border-color);
-            padding: 5px;
-        }
-
-        td {
-            border: solid 1px var(--table-border-color);
-            padding: 5px;
-            min-width: 150px;
+        select {
+          background-color: #121212;
+          color: white;
         }
 
         #importSQL-btn,
         #exportSQL-btn {
-            color: black;
-            border-radius: 4px;
-            text-decoration: none;
-            /* max-height: 80px; */
-            height: 35px;
+          background-color: #121212;
+          color: white;
+          border-width: 1px;
         }
 
-        #importSQL-btn {
-            background-color: #f6f6f6;
-            border-color: #e0e0e0;
-            margin-bottom: 5px;
-        }
-
-        #importSQL-btn:hover {
-            background-color: #e0e0e0;
-        }
-
-        #exportSQL-btn {
-            background-color: #f6f6f6;
-            border-color: #e0e0e0;
-        }
-
+        #importSQL-btn:hover,
         #exportSQL-btn:hover {
-            background-color: #e0e0e0;
+          background-color: #121212;
+          border-color: #ffc100;
+          color: white;
         }
 
-        #getMoreHazelPoints {
-            background-color: #f2e199;
-            border-color: #f2e199;
-            color: black;
-            border-radius: 4px;
-            text-decoration: none;
+        .result-window,
+        .ad-container {
+          background-color: #121212;
+          color: white;
         }
 
-        /* #getMoreHazelPoints:hover {
+        .result-window .table-container {
+          background-color: #121212;
+        }
+
+        th {
+          background-color: #127c00;
+          color: white;
+        }
+
+        footer {
+          color: #90d201;
+        }
+
+        #back-to-top:hover {
+          background-color: #ffc100;
+          color: black;
+        }
+      }
+
+      .container-fluid {
+        padding: 20px;
+      }
+
+      .panel {
+        background-color: var(--pannel-background-color);
+        border: 1px solid #dfe3e6;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .pro-badge {
+        background-color: #f6f8f9;
+        border: 1px solid #dfe3e6;
+        border-radius: 20px;
+        padding: 3px 10px;
+        font-size: 12px;
+        display: inline-block;
+        margin-left: 10px;
+      }
+
+      .inSidebar-btn,
+      .run-btn {
+        /* Add border */
+        color: white;
+        padding: 8px 0px;
+        font-size: 14px;
+        line-height: 1.5;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        /* Add texture effect */
+        background-image: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.05) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba(255, 255, 255, 0.05) 50%,
+          rgba(255, 255, 255, 0.05) 75%,
+          transparent 75%,
+          transparent
+        );
+        background-size: 100% 100%;
+        transition: background-position 0.5s;
+      }
+
+      .run-btn {
+        background-color: rgba(137, 84, 24, 0.804);
+        border: 1px solid rgba(137, 84, 24, 0.804);
+      }
+
+      .run-btn:hover {
+        background-color: #875d2c;
+      }
+
+      .inSidebar-btn {
+        background-color: #127c00;
+        border: 1px solid #127c00;
+      }
+
+      .inSidebar-btn:hover {
+        background-color: #0f6b00;
+        /* background-size: 0px 0px; */
+        transition: background-position 0.5s;
+      }
+
+      .run-btn:hover {
+        background-color: #875d2c;
+        /* background-size: 0px 0px; */
+        transition: background-position 0.5s;
+      }
+
+      .inSidebar-btn {
+        padding: 0px 11px;
+      }
+
+      #delTempSave-btn {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+      }
+
+      #delTempSave-btn:hover {
+        background-color: #c82333;
+      }
+
+      #login-logout-btn {
+        background-color: #646fe8;
+        border-color: #646fe8;
+        color: white;
+        height: 50px;
+      }
+
+      #login-logout-btn:hover {
+        background-color: #3a3f9e;
+      }
+
+      .small-button {
+        background-color: #f6f6f6;
+        border-color: #ffc100;
+        color: black;
+        /* padding: 2px 6px; */
+        border-radius: 4px;
+        text-decoration: none;
+        max-height: 28px;
+        height: 28px;
+        /* border: solid 1px rgb(79, 79, 79); */
+      }
+
+      .discount-badge {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .keyboard-shortcuts {
+        font-size: 14px;
+        color: #495057;
+        margin-bottom: 20px;
+      }
+
+      .ad-container {
+        background-color: #e9ecef;
+        border: 1px solid #dfe3e6;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+
+      .ad-container img {
+        width: 100%;
+      }
+
+      .ad-text {
+        font-size: 14px;
+        color: #495057;
+        margin-top: 10px;
+      }
+
+      .trial-btn {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+        padding: 10px 15px;
+        font-size: 14px;
+        line-height: 1.5;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .footer {
+        font-size: 12px;
+        color: #495057;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .result-window {
+        min-height: 350px;
+        height: auto;
+        background-color: #f6f6f6;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        padding: 10px;
+        overflow-x: hidden;
+        /* font-family: monospace; */
+        padding: 20px 25px;
+      }
+
+      .font-slider-container {
+        margin-bottom: 5px;
+        margin-top: 5px;
+      }
+
+      .font-slider {
+        width: 100%;
+      }
+
+      .sidebar-collapse i {
+        margin: 0px;
+        cursor: pointer;
+      }
+
+      .db-select {
+        margin-bottom: 20px;
+      }
+
+      .sidebar-content {
+        display: none;
+      }
+
+      .sidebar-expanded .sidebar-content {
+        display: block;
+      }
+
+      .sidebar-collapsed .sidebar-toggle {
+        display: block;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .sidebar-collapsed .sidebar-content {
+        display: none;
+      }
+
+      .sidebar-collapsed {
+        width: 55px;
+        /* Adjust the width of the collapsed sidebar */
+      }
+
+      .sidebar-expanded {
+        min-width: 265px;
+        width: 265px;
+        /* Adjust the width of the expanded sidebar */
+      }
+
+      #schema-editor,
+      #query-editor {
+        height: 600px;
+        max-width: 100%;
+        /* 或其他希望的高度 */
+      }
+
+      .loader {
+        border: 5px solid #f3f3f3;
+        /* Light grey */
+        border-top: 3px solid #3498db00;
+        /* Blue */
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .running-btn {
+        pointer-events: none;
+        /* Disable button clicks when loading */
+      }
+
+      #editWindows {
+        flex-wrap: nowrap;
+      }
+
+      #editor1 {
+        margin-right: 2px;
+      }
+
+      #editor2 {
+        margin-left: 2px;
+      }
+
+      .editor {
+        width: 50%;
+        height: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 10px;
+      }
+
+      .label {
+        /* display: flex;
+            flex-wrap: wrap; */
+        align-items: start;
+        /* margin-bottom: 10px; */
+      }
+
+      .label button {
+        margin: 0;
+        margin-bottom: 10px;
+        height: 100px;
+      }
+
+      #back-to-top {
+        position: fixed;
+        bottom: 10px;
+        left: 20px;
+        background-color: #f2e199;
+        color: black;
+        padding: 10px 0px;
+        border-radius: 4px;
+        text-decoration: none;
+        border: solid 1px rgb(79, 79, 79);
+      }
+
+      #back-to-top:hover {
+        background-color: #ffc100;
+        /* color: white; */
+      }
+
+      .result-window .table-container {
+        padding-left: 1px;
+        padding-right: 1px;
+        overflow-x: auto;
+        /* 使表格容器可以水平滚动 */
+        overflow-y: hidden;
+        /* 禁止垂直滚动 */
+        background-color: white;
+        margin-bottom: 10px;
+        /* 添加下边距以分隔多个表格 */
+        /* border: solid 1px black; */
+      }
+
+      table {
+        min-width: 100%;
+        font-size: larger;
+        border: solid 1px var(--table-border-color);
+        border-collapse: collapse;
+        /* 确保边框样式不丢失 */
+      }
+
+      th {
+        background-color: #f8eeb9;
+        border: solid 1px var(--table-border-color);
+        padding: 5px;
+      }
+
+      td {
+        border: solid 1px var(--table-border-color);
+        padding: 5px;
+        min-width: 150px;
+      }
+
+      #importSQL-btn,
+      #exportSQL-btn {
+        color: black;
+        border-radius: 4px;
+        text-decoration: none;
+        /* max-height: 80px; */
+        height: 35px;
+      }
+
+      #importSQL-btn {
+        background-color: #f6f6f6;
+        border-color: #e0e0e0;
+        margin-bottom: 5px;
+      }
+
+      #importSQL-btn:hover {
+        background-color: #e0e0e0;
+      }
+
+      #exportSQL-btn {
+        background-color: #f6f6f6;
+        border-color: #e0e0e0;
+      }
+
+      #exportSQL-btn:hover {
+        background-color: #e0e0e0;
+      }
+
+      #getMoreHazelPoints {
+        background-color: #f2e199;
+        border-color: #f2e199;
+        color: black;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      /* #getMoreHazelPoints:hover {
             background-color: black;
             color: white;
         } */
 
-        #snackbar {
-            visibility: hidden;
-            width: 270px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 2px;
-            padding: 16px 12px;
-            position: fixed;
-            z-index: 1;
-            left: 50%;
-            bottom: 30px;
-            font-size: 17px;
-            transition: visibility 0s, bottom 0.5s ease-in-out;
-            word-wrap: break-word;
-            /* 確保內容過長時自動換行 */
+      #snackbar {
+        visibility: hidden;
+        width: 270px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px 12px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+        transition: visibility 0s, bottom 0.5s ease-in-out;
+        word-wrap: break-word;
+        /* 確保內容過長時自動換行 */
+      }
+
+      #snackbar.show {
+        visibility: visible;
+        bottom: 65px;
+      }
+
+      /* 表格折疊 */
+      table tr td:first-child,
+      table tr th:first-child {
+        width: 30px;
+        min-width: 30px;
+        /* 圖示單元格的固定寬度 */
+        text-align: center;
+        /* 圖示水平居中 */
+        padding: 5px 0;
+        /* 調整上下邊距來垂直居中圖示，減少水平邊距 */
+      }
+
+      .table-collapsed-icon,
+      .table-expanded-icon {
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .table-collapsed-icon:before {
+        content: "▼";
+      }
+
+      .table-expanded-icon:before {
+        content: "▶";
+      }
+
+      @media (max-width: 22cm
+            /*780px*/) {
+        #editWindows {
+          flex-wrap: wrap;
         }
 
-        #snackbar.show {
-            visibility: visible;
-            bottom: 65px;
+        .editor {
+          margin: 0;
+          margin-bottom: 10px;
+          width: 99%;
+          max-width: none;
         }
 
-        /* 表格折疊 */
-        table tr td:first-child,
-        table tr th:first-child {
-            width: 30px;
-            min-width: 30px;
-            /* 圖示單元格的固定寬度 */
-            text-align: center;
-            /* 圖示水平居中 */
-            padding: 5px 0;
-            /* 調整上下邊距來垂直居中圖示，減少水平邊距 */
+        .small-button {
+          max-height: 35px;
+          height: 35px;
         }
+      }
 
-        .table-collapsed-icon,
-        .table-expanded-icon {
-            font-weight: bold;
-            cursor: pointer;
+      @media (max-width: 445px) {
+        .small-button {
+          max-height: 60px;
+          height: 60px;
         }
-
-        .table-collapsed-icon:before {
-            content: '▼';
-        }
-
-        .table-expanded-icon:before {
-            content: '▶';
-        }
-
-        @media (max-width: 22cm
-            /*780px*/
-        ) {
-            #editWindows {
-                flex-wrap: wrap;
-            }
-
-            .editor {
-                margin: 0;
-                margin-bottom: 10px;
-                width: 99%;
-                max-width: none;
-            }
-
-            .small-button {
-                max-height: 35px;
-                height: 35px;
-            }
-        }
-
-        @media (max-width: 445px) {
-            .small-button {
-                max-height: 60px;
-                height: 60px;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <div class="container-fluid" style="width: 100vw;display: flex;flex-direction: column;">
-        <div style="display: flex; flex-wrap:nowrap; width: 100%;">
-            <div class="col-md-3 sidebar sidebar-expanded" id="sidebar">
-                <div class="panel" style="margin-right: 10px;">
-                    <div class="sidebar-collapse d-flex justify-content-between align-items-center"
-                        style="height: 40px;">
-                        <h5 id="sidebarTitle">Options</h5>
-                        <i class="fas fa-bars" id="sidebarToggle"></i>
-                    </div>
-                    <div class="sidebar-content" style="margin-top: 10px;margin-bottom: -10px;">
-                        <div class="db-select">
-                            <select class="form-select mb-2" aria-label="Select Database" id="db-type">
-                                <label for="db-type">Select Database</label>
-                                <option selected value="Select Database">Select Database</option>
-                                <option value="mysql">MySQL</option>
-                                <option value="postgres">PostgreSQL</option>
-                                <!-- <option value="SQLite">SQLite</option> -->
-                                <!-- <option value="Oracle">Oracle</option> -->
-                                <option value="mssql">MS SQL Server</option>
-                            </select>
-                            <select class="form-select mb-2" aria-label="Select Version" id="db-version">
-                                <label for="db-version">Select Version</label>
-                                <option selected value="Select Version">Select Version</option>
-                            </select>
-                            <script>
-                                // 動態加入版本選項
-                                document.getElementById('db-type').addEventListener('change', function () {
-                                    const dbType = this.value;
-                                    const dbVersion = document.getElementById('db-version');
-                                    let options = [];
-                                    switch (dbType) {
-                                        case 'mysql':
-                                            options = ['9.0', '8.4','8.0', '5.7', '5.6', '5.5'];
-                                            break;
-                                        case 'postgres':
-                                            options = ['16', '15', '14', '13', '12', '11', '10', '9.6', '9.5', '9.4'];
-                                            break;
-                                        case 'mssql':
-                                            options = ['2022', '2019'];
-                                            break;
-                                        default:
-                                            options = ['Select Version'];
-                                    }
-                                    let versionList = [];
-                                    for (let i = 0; i < options.length; i++) {
-                                        versionList += '<option value="' + options[i] + '">' + options[i] + '</option>';
-                                    }
-                                    dbVersion.innerHTML = versionList;
-                                });
-                            </script>
-                        </div>
-                        <div class="font-slider-container" lang="zh-Hant-TW">
-                            <label for="fontSlider">
-                                <h5>字型大小:<span id="nowFontSize"></span></h5>
-                            </label>
-                            <input type="range" class="font-slider" id="fontSlider" min="12" max="50" value="14">
-                        </div>
-                        <!-- <input type="text" class="form-control mb-2" placeholder="Fiddle Title"
+  <body>
+    <div
+      class="container-fluid"
+      style="width: 100vw; display: flex; flex-direction: column"
+    >
+      <div style="display: flex; flex-wrap: nowrap; width: 100%">
+        <div class="col-md-3 sidebar sidebar-expanded" id="sidebar">
+          <div class="panel" style="margin-right: 10px">
+            <div
+              class="sidebar-collapse d-flex justify-content-between align-items-center"
+              style="height: 40px"
+            >
+              <h5 id="sidebarTitle">Options</h5>
+              <i class="fas fa-bars" id="sidebarToggle"></i>
+            </div>
+            <div
+              class="sidebar-content"
+              style="margin-top: 10px; margin-bottom: -10px"
+            >
+              <div class="db-select">
+                <select
+                  class="form-select mb-2"
+                  aria-label="Select Database"
+                  id="db-type"
+                >
+                  <label for="db-type">Select Database</label>
+                  <option selected value="Select Database">
+                    Select Database
+                  </option>
+                  <option value="mysql">MySQL</option>
+                  <option value="postgres">PostgreSQL</option>
+                  <!-- <option value="SQLite">SQLite</option> -->
+                  <!-- <option value="Oracle">Oracle</option> -->
+                  <option value="mssql">MS SQL Server</option>
+                </select>
+                <select
+                  class="form-select mb-2"
+                  aria-label="Select Version"
+                  id="db-version"
+                >
+                  <label for="db-version">Select Version</label>
+                  <option selected value="Select Version">
+                    Select Version
+                  </option>
+                </select>
+                <script>
+                  // 動態加入版本選項
+                  document
+                    .getElementById("db-type")
+                    .addEventListener("change", function () {
+                      const dbType = this.value;
+                      const dbVersion = document.getElementById("db-version");
+                      let options = [];
+                      switch (dbType) {
+                        case "mysql":
+                          options = ["9.0", "8.4", "8.0", "5.7", "5.6", "5.5"];
+                          break;
+                        case "postgres":
+                          options = [
+                            "16",
+                            "15",
+                            "14",
+                            "13",
+                            "12",
+                            "11",
+                            "10",
+                            "9.6",
+                            "9.5",
+                            "9.4",
+                          ];
+                          break;
+                        case "mssql":
+                          options = ["2022", "2019"];
+                          break;
+                        default:
+                          options = ["Select Version"];
+                      }
+                      let versionList = [];
+                      for (let i = 0; i < options.length; i++) {
+                        versionList +=
+                          '<option value="' +
+                          options[i] +
+                          '">' +
+                          options[i] +
+                          "</option>";
+                      }
+                      dbVersion.innerHTML = versionList;
+                    });
+                </script>
+              </div>
+              <div class="font-slider-container" lang="zh-Hant-TW">
+                <label for="fontSlider">
+                  <h5>字型大小:<span id="nowFontSize"></span></h5>
+                </label>
+                <input
+                  type="range"
+                  class="font-slider"
+                  id="fontSlider"
+                  min="12"
+                  max="50"
+                  value="14"
+                />
+              </div>
+              <!-- <input type="text" class="form-control mb-2" placeholder="Fiddle Title"
                             aria-label="Fiddle Title"> -->
-                        <!-- <textarea class="form-control mb-2" placeholder="Fiddle Description"
+              <!-- <textarea class="form-control mb-2" placeholder="Fiddle Description"
                             aria-label="Fiddle Description"></textarea> -->
-                        <div class="form-check form-switch mt-2 mb-3" lang="zh-Hant-TW">
-                            <input class="form-check-input" type="checkbox" id="miniMap" checked>
-                            <label class="form-check-label" for="miniMap">編輯器小地圖(Minimap)</label>
-                        </div>
-                        <div class="form-check form-switch mt-2 mb-3" lang="zh-Hant-TW">
-                            <input class="form-check-input" type="checkbox" id="toggle-dark-mode" checked>
-                            <label class="form-check-label" for="toggle-dark-mode">Lights💡</label>
-                        </div>
-                        <!-- <span class="pro-badge">PRO</span> -->
-                        <div style="display: flex;height: 75px;justify-content: center;" lang="zh-Hant-TW">
-                            <button class="inSidebar-btn" id="tempSave-btn"
-                                style="font-size: 15px;margin-right: 2px;">暫存至<br>瀏覽器</button>
-                            <button class="inSidebar-btn" id="delTempSave-btn" style="font-size: 15px;">刪除<br>瀏覽器暫存</button>
-                        </div>
-                        <div id="importExportSQL" lang="zh-Hant-TW">
-                            <button class="inSidebar-btn" id="importSQL-btn">匯入 .sql 或 .txt 檔</button>
-                            <button class="inSidebar-btn" id="exportSQL-btn">匯出 .sql 檔</button>
-                        </div>
+              <div class="form-check form-switch mt-2 mb-3" lang="zh-Hant-TW">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="miniMap"
+                  checked
+                />
+                <label class="form-check-label" for="miniMap"
+                  >編輯器小地圖(Minimap)</label
+                >
+              </div>
+              <div class="form-check form-switch mt-2 mb-3" lang="zh-Hant-TW">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="toggle-dark-mode"
+                  checked
+                />
+                <label class="form-check-label" for="toggle-dark-mode"
+                  >Lights💡</label
+                >
+              </div>
+              <!-- <span class="pro-badge">PRO</span> -->
+              <div
+                style="display: flex; height: 75px; justify-content: center"
+                lang="zh-Hant-TW"
+              >
+                <button
+                  class="inSidebar-btn"
+                  id="tempSave-btn"
+                  style="font-size: 15px; margin-right: 2px"
+                >
+                  暫存至<br />瀏覽器
+                </button>
+                <button
+                  class="inSidebar-btn"
+                  id="delTempSave-btn"
+                  style="font-size: 15px"
+                >
+                  刪除<br />瀏覽器暫存
+                </button>
+              </div>
+              <div id="importExportSQL" lang="zh-Hant-TW">
+                <button class="inSidebar-btn" id="importSQL-btn">
+                  匯入 .sql 或 .txt 檔
+                </button>
+                <button class="inSidebar-btn" id="exportSQL-btn">
+                  匯出 .sql 檔
+                </button>
+              </div>
 
-                        <!-- 會員相關 -->
-                        <div lang="zh-Hant-TW">
-                            <div id="user-info" style=" width: 100%;display: none;flex-direction: column;">
-                                <strong id="user"
-                                    style="width: 100%; font-size: 18px;text-align: center;margin-bottom: 0;"></strong>
-                                <div id="HazelPoints"
-                                    style="width: 100%;font-size: 15px; color: var(--hazelPoints-text-color);display: flex;flex-direction: column; align-items: center;margin: 5px 0px;border: var(--hazelPoints-background-border);border-radius: 6px;padding: 8px;background-color:var(--hazelPoints-background-color);">
-                                    HazelPoints:<span id="points">0</span>
-                                    <button class="small-button" id="getMoreHazelPoints">獲取更多</button>
-                                </div>
-                            </div>
+              <!-- 會員相關 -->
+              <div lang="zh-Hant-TW">
+                <div
+                  id="user-info"
+                  style="width: 100%; display: none; flex-direction: column"
+                >
+                  <strong
+                    id="user"
+                    style="
+                      width: 100%;
+                      font-size: 18px;
+                      text-align: center;
+                      margin-bottom: 0;
+                    "
+                  ></strong>
+                  <div
+                    id="HazelPoints"
+                    style="
+                      width: 100%;
+                      font-size: 15px;
+                      color: var(--hazelPoints-text-color);
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      margin: 5px 0px;
+                      border: var(--hazelPoints-background-border);
+                      border-radius: 6px;
+                      padding: 8px;
+                      background-color: var(--hazelPoints-background-color);
+                    "
+                  >
+                    HazelPoints:<span id="points">0</span>
+                    <button class="small-button" id="getMoreHazelPoints">
+                      獲取更多
+                    </button>
+                  </div>
+                </div>
 
-                            <button id="login-logout-btn" class="inSidebar-btn" style="font-size: 18px;"></button>
-                        </div>
+                <button
+                  id="login-logout-btn"
+                  class="inSidebar-btn"
+                  style="font-size: 18px"
+                ></button>
+              </div>
 
-                        <!-- <div class="discount-badge">50% OFF for Early Adopters</div> -->
-                        <!-- <div class="keyboard-shortcuts">
+              <!-- <div class="discount-badge">50% OFF for Early Adopters</div> -->
+              <!-- <div class="keyboard-shortcuts">
                             Show Keyboard Shortcuts
                         </div> -->
-                        <!-- <div class="ad-container">
+              <!-- <div class="ad-container">
                             <img src="https://placehold.co/300x250"
                                 alt="Placeholder image for an advertisement about conducting online SQL assessments in minutes with a 7-day free trial offer.">
                             <div class="ad-text">
@@ -699,826 +832,1038 @@
                             </div>
                             <button class="trial-btn">7 Day Free Trial</button>
                         </div> -->
-                        <a href="https://support.hazelnut-paradise.com/index.php?category_id=4&category_name=DB%20Playground"
-                            target="_blank"
-                            style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-align: center; text-decoration: none;font-weight: bold; border-radius: 4px;width: 100%;">使用說明</a>
-                        <p style="margin-top: 8px;margin-bottom: 0;padding: 0;text-align: center;">畫圖好夥伴：<a
-                                href="https://app.diagrams.net/" target="_blank">draw.io</a></p>
-                        <iframe id="navbar-placeholder" src="https://hazelnut-paradise.com/navBar"
-                            style="width: 100%;height: 320px;margin: 0;padding: 0;"></iframe>
-                        <h1 style="text-align: center;font-size: 23px;margin-bottom: 10px;"><img src="dbPlayground.png"
-                                style="height: 30px;margin-right: 5px;">DB Playground</h1>
-                    </div>
-                    <div class="sidebar-toggle d-none">
-                        <i class="fas fa-bars" id="sidebarToggleCollapsed"></i>
-                    </div>
-                </div>
+              <a
+                href="https://support.hazelnut-paradise.com/index.php?category_id=4&category_name=DB%20Playground"
+                target="_blank"
+                style="
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background-color: #007bff;
+                  color: white;
+                  text-align: center;
+                  text-decoration: none;
+                  font-weight: bold;
+                  border-radius: 4px;
+                  width: 100%;
+                "
+                >使用說明</a
+              >
+              <p
+                style="
+                  margin-top: 8px;
+                  margin-bottom: 0;
+                  padding: 0;
+                  text-align: center;
+                "
+              >
+                畫圖好夥伴：<a href="https://app.diagrams.net/" target="_blank"
+                  >draw.io</a
+                >
+              </p>
+              <iframe
+                id="navbar-placeholder"
+                src="https://hazelnut-paradise.com/navBar"
+                style="width: 100%; height: 320px; margin: 0; padding: 0"
+              ></iframe>
+              <h1
+                style="text-align: center; font-size: 23px; margin-bottom: 10px"
+              >
+                <img
+                  src="dbPlayground.png"
+                  style="height: 30px; margin-right: 5px"
+                />DB Playground
+              </h1>
             </div>
-            <main class="col-md-9" id="mainContent" style="width: calc(100% - 267px)">
-                <div id="editWindows" style="width: 100%; display: flex;">
-                    <div class="panel editor" id="editor1">
-                        <div class="label">
-                            <h5>Schema SQL</h5>
-                            <div style="display: flex;flex-wrap: wrap;justify-content: end;">
-                                <button class="small-button" onclick="showCSVtoSQLwindow()"
-                                    style="margin-right: auto;">CSV to SQL</button>
-                                <button class="small-button" id="copySchemaBtn">一鍵複製</button>
-                            </div>
-
-                        </div>
-                        <div id="schema-editor"></div>
-                    </div>
-                    <div class="panel editor" id="editor2">
-                        <div class="label">
-                            <h5>Query SQL</h5>
-                            <div style="display: flex;flex-wrap: wrap;justify-content: end;">
-                                <button class="small-button" id="copyQueryBtn">一鍵複製</button>
-                            </div>
-                        </div>
-                        <div id="query-editor"></div>
-                    </div>
-                </div>
-
-                <button class="run-btn" id="runButton" onclick="executeQuery()">
-                    <span id="buttonText">
-                        <h3 style="margin: 0;padding: 0;">Run</h3>
-                    </span>
-                    <div id="loader" class="loader" style="display: none;"></div>
-                </button>
-                <div>
-                    <div style="margin-bottom: 2px;">
-                        <button class="small-button" id="copyResultHTMLBtn" style="margin-bottom: 3px;">複製 HTML</button>
-                        <button class="small-button" id="copyResultMarkdownBtn" style="margin-bottom: 3px;">複製
-                            Markdown</button>
-                        <button class="small-button" id="copyResultTextBtn" style="margin-bottom: 3px;">複製純文字</button>
-                    </div>
-                    <div class="result-window" id="result-window">
-                        <!-- Results will be displayed here -->
-                    </div>
-                </div>
-
-            </main>
+            <div class="sidebar-toggle d-none">
+              <i class="fas fa-bars" id="sidebarToggleCollapsed"></i>
+            </div>
+          </div>
         </div>
-
-        <!-- CSV to SQL -->
-        <style>
-            #toSQL_window {
-                background-color: #f8f9fa;
-                border: 1px solid #dee2e6;
-                border-radius: 0.25rem;
-                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-                display: none;
-                position: fixed;
-                top: 0px;
-                left: calc(50% - 35vw);
-                width: 70vw;
-                max-height: 100vh;
-                overflow-y: scroll;
-                z-index: 1000;
-            }
-
-            #toSQL_sqlResult {
-                height: 200px;
-                overflow-y: scroll;
-            }
-        </style>
-        <div id="toSQL_window" class="container p-4">
-            <form id="toSQL_uploadForm" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inputType" id="uploadFileRadio" value="file"
-                            checked onchange="toSQL_toggleInputType()">
-                        <label class="form-check-label" for="uploadFileRadio">Upload CSV File</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inputType" id="inputTextRadio" value="text"
-                            onchange="toSQL_toggleInputType()">
-                        <label class="form-check-label" for="inputTextRadio">Input CSV Text</label>
-                    </div>
+        <main
+          class="col-md-9"
+          id="mainContent"
+          style="width: calc(100% - 267px)"
+        >
+          <div id="editWindows" style="width: 100%; display: flex">
+            <div class="panel editor" id="editor1">
+              <div class="label">
+                <h5>Schema SQL</h5>
+                <div
+                  style="display: flex; flex-wrap: wrap; justify-content: end"
+                >
+                  <button
+                    class="small-button"
+                    onclick="showCSVtoSQLwindow()"
+                    style="margin-right: auto"
+                  >
+                    CSV to SQL
+                  </button>
+                  <button class="small-button" id="copySchemaBtn">
+                    一鍵複製
+                  </button>
                 </div>
-
-                <div id="toSQL_fileInputContainer" class="mb-3">
-                    <input type="file" class="form-control" id="toSQL_csvFile" name="file" accept=".csv" required>
-                </div>
-
-                <div id="toSQL_textInputContainer" class="mb-3" style="display:none;">
-                    <textarea class="form-control" id="toSQL_csvText" name="csv_text"
-                        placeholder="Enter CSV data here..." rows="5"></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="toSQL_tableName" name="table_name"
-                        placeholder="Enter table name" required>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="toSQL_uploadFile()">轉換！</button>
-                <div id="toSQL_loader" class="spinner-border" role="status" style="display: none;">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </form>
-
-            <div class="mt-3">
-                <pre id="toSQL_sqlResult" class="border p-3"></pre>
+              </div>
+              <div id="schema-editor"></div>
             </div>
-            <div class="mt-3">
-                <button id="toSQL_copyButton" class="btn btn-outline-secondary mt-1 mb-1"
-                    onclick="copyToClipboard('toSQL_sqlResult')">Copy SQL</button>
-                <button id="toSQL_insertButton" class="btn btn-outline-info mt-1 mb-1"
-                    onclick="toSQL_insertToSchemaSQL()">插入至
-                    Schema SQL</button>
-                <button id="toSQL_clearButton" class="btn btn-outline-warning mt-1 mb-1"
-                    onclick="toSQL_clear()">清除</button>
-                <button id="toSQL_closeWindowsButton" class="btn btn-outline-danger mt-1 mb-1"
-                    onclick="toSQL_closeWindows()">關閉</button>
+            <div class="panel editor" id="editor2">
+              <div class="label">
+                <h5>Query SQL</h5>
+                <div
+                  style="display: flex; flex-wrap: wrap; justify-content: end"
+                >
+                  <button class="small-button" id="copyQueryBtn">
+                    一鍵複製
+                  </button>
+                </div>
+              </div>
+              <div id="query-editor"></div>
             </div>
+          </div>
+
+          <button class="run-btn" id="runButton" onclick="executeQuery()">
+            <span id="buttonText">
+              <h3 style="margin: 0; padding: 0">Run</h3>
+            </span>
+            <div id="loader" class="loader" style="display: none"></div>
+          </button>
+          <div>
+            <div style="margin-bottom: 2px">
+              <button
+                class="small-button"
+                id="copyResultHTMLBtn"
+                style="margin-bottom: 3px"
+              >
+                複製 HTML
+              </button>
+              <button
+                class="small-button"
+                id="copyResultMarkdownBtn"
+                style="margin-bottom: 3px"
+              >
+                複製 Markdown
+              </button>
+              <button
+                class="small-button"
+                id="copyResultTextBtn"
+                style="margin-bottom: 3px"
+              >
+                複製純文字
+              </button>
+            </div>
+            <div class="result-window" id="result-window">
+              <!-- Results will be displayed here -->
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- CSV to SQL -->
+      <style>
+        #toSQL_window {
+          background-color: #f8f9fa;
+          border: 1px solid #dee2e6;
+          border-radius: 0.25rem;
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+          display: none;
+          position: fixed;
+          top: 0px;
+          left: calc(50% - 35vw);
+          width: 70vw;
+          max-height: 100vh;
+          overflow-y: scroll;
+          z-index: 1000;
+        }
+
+        #toSQL_sqlResult {
+          height: 200px;
+          overflow-y: scroll;
+        }
+      </style>
+      <div id="toSQL_window" class="container p-4">
+        <form id="toSQL_uploadForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inputType"
+                id="uploadFileRadio"
+                value="file"
+                checked
+                onchange="toSQL_toggleInputType()"
+              />
+              <label class="form-check-label" for="uploadFileRadio"
+                >Upload CSV File</label
+              >
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inputType"
+                id="inputTextRadio"
+                value="text"
+                onchange="toSQL_toggleInputType()"
+              />
+              <label class="form-check-label" for="inputTextRadio"
+                >Input CSV Text</label
+              >
+            </div>
+          </div>
+
+          <div id="toSQL_fileInputContainer" class="mb-3">
+            <input
+              type="file"
+              class="form-control"
+              id="toSQL_csvFile"
+              name="file"
+              accept=".csv"
+              required
+            />
+          </div>
+
+          <div id="toSQL_textInputContainer" class="mb-3" style="display: none">
+            <textarea
+              class="form-control"
+              id="toSQL_csvText"
+              name="csv_text"
+              placeholder="Enter CSV data here..."
+              rows="5"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="toSQL_tableName"
+              name="table_name"
+              placeholder="Enter table name"
+              required
+            />
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="toSQL_uploadFile()"
+          >
+            轉換！
+          </button>
+          <div
+            id="toSQL_loader"
+            class="spinner-border"
+            role="status"
+            style="display: none"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+        </form>
+
+        <div class="mt-3">
+          <pre id="toSQL_sqlResult" class="border p-3"></pre>
         </div>
-        <!-- CSV to SQL -->
+        <div class="mt-3">
+          <button
+            id="toSQL_copyButton"
+            class="btn btn-outline-secondary mt-1 mb-1"
+            onclick="copyToClipboard('toSQL_sqlResult')"
+          >
+            Copy SQL
+          </button>
+          <button
+            id="toSQL_insertButton"
+            class="btn btn-outline-info mt-1 mb-1"
+            onclick="toSQL_insertToSchemaSQL()"
+          >
+            插入至 Schema SQL
+          </button>
+          <button
+            id="toSQL_clearButton"
+            class="btn btn-outline-warning mt-1 mb-1"
+            onclick="toSQL_clear()"
+          >
+            清除
+          </button>
+          <button
+            id="toSQL_closeWindowsButton"
+            class="btn btn-outline-danger mt-1 mb-1"
+            onclick="toSQL_closeWindows()"
+          >
+            關閉
+          </button>
+        </div>
+      </div>
+      <!-- CSV to SQL -->
 
-        <!-- 回頁面頂端的按鈕 -->
-        <a id="back-to-top" href="#" style="writing-mode: vertical-rl;">
-            <h6 style="padding: 10px;margin: 0;font-weight: bold;"><i class="fas fa-arrow-up"></i>回頂端</h6>
-        </a>
+      <!-- 回頁面頂端的按鈕 -->
+      <a id="back-to-top" href="#" style="writing-mode: vertical-rl">
+        <h6 style="padding: 10px; margin: 0; font-weight: bold">
+          <i class="fas fa-arrow-up"></i>回頂端
+        </h6>
+      </a>
 
-        <div id="snackbar">This is a snackbar message!</div>
+      <div id="snackbar">This is a snackbar message!</div>
 
-        <!-- 廣告 -->
-        <div id="div-onead-draft"></div>
-        <script type="text/javascript">
-            var custom_call = function (params) {
-                if (params.hasAd) {
-                    console.log('TD has AD')
-                } else {
-                    console.log('TD AD Empty')
-                }
-            }
-            ONEAD_TEXT = {};
-            ONEAD_TEXT.pub = {};
-            ONEAD_TEXT.pub.uid = "2000181";
-            ONEAD_TEXT.pub.slotobj = document.getElementById("div-onead-draft");
-            ONEAD_TEXT.pub.player_mode = "text-drive";
-            ONEAD_TEXT.pub.queryAdCallback = custom_call;
-            window.ONEAD_text_pubs = window.ONEAD_text_pubs || [];
-            ONEAD_text_pubs.push(ONEAD_TEXT);
-        </script>
-        <script src="https://ad-specs.guoshipartners.com/static/js/ad-serv.min.js"></script>
-        <!-- 廣告 -->
+      <!-- 廣告 -->
+      <div id="div-onead-draft"></div>
+      <script type="text/javascript">
+        var custom_call = function (params) {
+          if (params.hasAd) {
+            console.log("TD has AD");
+          } else {
+            console.log("TD AD Empty");
+          }
+        };
+        ONEAD_TEXT = {};
+        ONEAD_TEXT.pub = {};
+        ONEAD_TEXT.pub.uid = "2000181";
+        ONEAD_TEXT.pub.slotobj = document.getElementById("div-onead-draft");
+        ONEAD_TEXT.pub.player_mode = "text-drive";
+        ONEAD_TEXT.pub.queryAdCallback = custom_call;
+        window.ONEAD_text_pubs = window.ONEAD_text_pubs || [];
+        ONEAD_text_pubs.push(ONEAD_TEXT);
+      </script>
+      <script src="https://ad-specs.guoshipartners.com/static/js/ad-serv.min.js"></script>
+      <!-- 廣告 -->
 
-        <footer class="footer">
-            Better than DB Fiddle - ♥
-        </footer>
+      <footer class="footer">Better than DB Fiddle - ♥</footer>
     </div>
 
     <script>
-        const loginLogout_Btn = document.getElementById('login-logout-btn');
-        let ifLogin = false;
-        (async () => {
-            ifLogin = await check_login()
-            if (ifLogin) {
-                loginLogout_Btn.textContent = '登出';
-            } else {
-                loginLogout_Btn.textContent = '登入 / 註冊';
-            }
-            loginLogout_Btn.addEventListener('click', function () {
-                if (ifLogin) {
-                    // 登出
-                    logout();
-                    location.reload();
-                } else {
-                    // 導到登入頁面
-                    window.location.href = 'https://hazelnut-paradise.com/account/login?redirect=https://apps.hazelnut-paradise.com/db-playground';
-                }
-            });
+      const loginLogout_Btn = document.getElementById("login-logout-btn");
+      let ifLogin = false;
+      (async () => {
+        ifLogin = await check_login();
+        if (ifLogin) {
+          loginLogout_Btn.textContent = "登出";
+        } else {
+          loginLogout_Btn.textContent = "登入 / 註冊";
+        }
+        loginLogout_Btn.addEventListener("click", function () {
+          if (ifLogin) {
+            // 登出
+            logout();
+            location.reload();
+          } else {
+            // 導到登入頁面
+            window.location.href =
+              "https://hazelnut-paradise.com/account/login?redirect=https://apps.hazelnut-paradise.com/db-playground";
+          }
+        });
 
-            const user = document.getElementById('user');
-            if (ifLogin) {
-                document.getElementById('user-info').style.display = 'flex';
-                const usernameInfo = await getUserInfo(whatToGet = ['username']);
-                const username = usernameInfo.username;
-                user.innerText = '@' + username
-            }
-        })();
+        const user = document.getElementById("user");
+        if (ifLogin) {
+          document.getElementById("user-info").style.display = "flex";
+          const usernameInfo = await getUserInfo((whatToGet = ["username"]));
+          const username = usernameInfo.username;
+          user.innerText = "@" + username;
+        }
+      })();
 
-        // Script to adjust font size of the textareas
-        document.getElementById('fontSlider').addEventListener('input', function () {
-            var size = this.value + 'px';
-            document.querySelectorAll('.form-control').forEach(function (textarea) {
-                textarea.style.fontSize = size;
+      // Script to adjust font size of the textareas
+      document
+        .getElementById("fontSlider")
+        .addEventListener("input", function () {
+          var size = this.value + "px";
+          document
+            .querySelectorAll(".form-control")
+            .forEach(function (textarea) {
+              textarea.style.fontSize = size;
             });
         });
 
-        // Script to toggle sidebar
-        document.getElementById('sidebarToggle').addEventListener('click', function () {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            const sidebarTitle = document.getElementById('sidebarTitle');
-            if (sidebar.classList.contains('sidebar-collapsed')) {
-                sidebarTitle.style.display = 'block';
-            } else {
-                sidebarTitle.style.display = 'none';
-            }
-            sidebar.classList.toggle('sidebar-expanded');
-            sidebar.classList.toggle('sidebar-collapsed');
+      // Script to toggle sidebar
+      document
+        .getElementById("sidebarToggle")
+        .addEventListener("click", function () {
+          const sidebar = document.getElementById("sidebar");
+          const mainContent = document.getElementById("mainContent");
+          const sidebarTitle = document.getElementById("sidebarTitle");
+          if (sidebar.classList.contains("sidebar-collapsed")) {
+            sidebarTitle.style.display = "block";
+          } else {
+            sidebarTitle.style.display = "none";
+          }
+          sidebar.classList.toggle("sidebar-expanded");
+          sidebar.classList.toggle("sidebar-collapsed");
 
-            if (sidebar.classList.contains('sidebar-expanded')) {
-                mainContent.style.width = `calc(100% - 267px)`; // 側邊欄展開時調整主內容寬度
-            } else {
-                mainContent.style.width = `calc(100% - 57px)`; // 側邊欄收縮時調整主內容寬度
-            }
+          if (sidebar.classList.contains("sidebar-expanded")) {
+            mainContent.style.width = `calc(100% - 267px)`; // 側邊欄展開時調整主內容寬度
+          } else {
+            mainContent.style.width = `calc(100% - 57px)`; // 側邊欄收縮時調整主內容寬度
+          }
         });
 
-        document.getElementById('sidebarToggleCollapsed').addEventListener('click', function () {
-            var sidebar = document.getElementById('sidebar');
-            var mainContent = document.getElementById('mainContent');
-            sidebar.classList.toggle('sidebar-expanded');
-            sidebar.classList.toggle('sidebar-collapsed');
-            mainContent.classList.toggle('col-md-9');
-            mainContent.classList.toggle('col-md-11');
+      document
+        .getElementById("sidebarToggleCollapsed")
+        .addEventListener("click", function () {
+          var sidebar = document.getElementById("sidebar");
+          var mainContent = document.getElementById("mainContent");
+          sidebar.classList.toggle("sidebar-expanded");
+          sidebar.classList.toggle("sidebar-collapsed");
+          mainContent.classList.toggle("col-md-9");
+          mainContent.classList.toggle("col-md-11");
         });
     </script>
-</body>
+  </body>
 
-<!-- Snackbar -->
-<script>
+  <!-- Snackbar -->
+  <script>
     function showSnackbar(contentText) {
-        const snackbar = document.getElementById('snackbar');
-        snackbar.innerHTML = contentText;
+      const snackbar = document.getElementById("snackbar");
+      snackbar.innerHTML = contentText;
 
-        // 動態計算Snackbar的位置
-        const snackbarWidth = snackbar.offsetWidth;
-        const windowWidth = window.innerWidth;
+      // 動態計算Snackbar的位置
+      const snackbarWidth = snackbar.offsetWidth;
+      const windowWidth = window.innerWidth;
 
-        snackbar.style.left = `${(windowWidth - snackbarWidth) / 2}px`;
+      snackbar.style.left = `${(windowWidth - snackbarWidth) / 2}px`;
 
-        snackbar.classList.add('show');
+      snackbar.classList.add("show");
 
-        // 先清除所有現有的定時器
-        if (snackbar.hideTimeout) {
-            clearTimeout(snackbar.hideTimeout);
-        }
+      // 先清除所有現有的定時器
+      if (snackbar.hideTimeout) {
+        clearTimeout(snackbar.hideTimeout);
+      }
 
-        // 設置新的定時器
-        snackbar.hideTimeout = setTimeout(function () {
-            snackbar.classList.remove('show');
-        }, 3500);
+      // 設置新的定時器
+      snackbar.hideTimeout = setTimeout(function () {
+        snackbar.classList.remove("show");
+      }, 3500);
     }
-</script>
+  </script>
 
-<script>
-    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id, data) VALUES (1, 'I LOVE DB Playground!!!');\nINSERT INTO example (id, data) VALUES (2, 'Easy, free, no limits as you see.');`
-    let defaultQuerySql = `SELECT * FROM example;`
+  <script>
+    let defaultSchemaSql = `CREATE TABLE example (\n  id INT,\n  data VARCHAR(100)\n);\nINSERT INTO example (id, data) VALUES (1, 'I LOVE DB Playground!!!');\nINSERT INTO example (id, data) VALUES (2, 'Easy, free, no limits as you see.');`;
+    let defaultQuerySql = `SELECT * FROM example;`;
     // 恢復暫存的數據
-    const tempSaveCookie = getCookie('dbPlayground');
-    const savedSchemaSql = localStorage.getItem('schemaSql');
-    const savedQuerySql = localStorage.getItem('querySql');
+    const tempSaveCookie = getCookie("dbPlayground");
+    const savedSchemaSql = localStorage.getItem("schemaSql");
+    const savedQuerySql = localStorage.getItem("querySql");
     if (savedSchemaSql) {
-        defaultSchemaSql = savedSchemaSql;
+      defaultSchemaSql = savedSchemaSql;
     }
     if (savedQuerySql) {
-        defaultQuerySql = savedQuerySql;
+      defaultQuerySql = savedQuerySql;
     }
-    if (!(savedSchemaSql || savedQuerySql) && (tempSaveCookie)) {
-        defaultSchemaSql = tempSaveCookie.schemaSql;
-        defaultQuerySql = tempSaveCookie.querySql;
+    if (!(savedSchemaSql || savedQuerySql) && tempSaveCookie) {
+      defaultSchemaSql = tempSaveCookie.schemaSql;
+      defaultQuerySql = tempSaveCookie.querySql;
     }
 
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } });
+    require.config({
+      paths: {
+        vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs",
+      },
+    });
     let schemaEditor, queryEditor;
 
-
-    require(['vs/editor/editor.main'], function () {
-        schemaEditor = monaco.editor.create(document.getElementById('schema-editor'), {
-            value: defaultSchemaSql,
-            language: 'sql',
-            theme: 'vs',
-            lineNumbers: 'on',
-            lineNumbersMinChars: 3,  // 行号区域宽度
-            scrollBeyondLastLine: false, // 限制滚动超过最后一行，可减少底部空白区域
-            readOnly: false,
-            quickSuggestions: true,  // 确保启用快速建议
-            suggestOnTriggerCharacters: true,
-            automaticLayout: true,  // Enable automatic layout
-            wordWrap: 'on',  // 啟用自動換行
-            scrollbar: {
-                alwaysConsumeMouseWheel: false
-            },
-            minimap: { enabled: true }
-        });
-
-        queryEditor = monaco.editor.create(document.getElementById('query-editor'), {
-            value: defaultQuerySql,
-            language: 'sql',
-            theme: 'vs',
-            lineNumbers: 'on',
-            lineNumbersMinChars: 3,
-            scrollBeyondLastLine: false,
-            readOnly: false,
-            quickSuggestions: true,  // 确保启用快速建议
-            suggestOnTriggerCharacters: true,
-            automaticLayout: true,  // Enable automatic layout
-            wordWrap: 'on',  // 啟用自動換行
-            scrollbar: {
-                alwaysConsumeMouseWheel: false
-            },
-            minimap: { enabled: true }
-        });
-
-        function setFontSize() {
-            let fontSlider = document.getElementById('fontSlider');
-            let newSize = fontSlider.value + 'px';
-            let nowFontSize = document.getElementById('nowFontSize');
-            nowFontSize.textContent = newSize;
-            if (schemaEditor && queryEditor) {
-                schemaEditor.updateOptions({ fontSize: parseInt(fontSlider.value) });
-                queryEditor.updateOptions({ fontSize: parseInt(fontSlider.value) });
-            }
+    require(["vs/editor/editor.main"], function () {
+      schemaEditor = monaco.editor.create(
+        document.getElementById("schema-editor"),
+        {
+          value: defaultSchemaSql,
+          language: "sql",
+          theme: "vs",
+          lineNumbers: "on",
+          lineNumbersMinChars: 3, // 行号区域宽度
+          scrollBeyondLastLine: false, // 限制滚动超过最后一行，可减少底部空白区域
+          readOnly: false,
+          quickSuggestions: true, // 确保启用快速建议
+          suggestOnTriggerCharacters: true,
+          automaticLayout: true, // Enable automatic layout
+          wordWrap: "on", // 啟用自動換行
+          scrollbar: {
+            alwaysConsumeMouseWheel: false,
+          },
+          minimap: { enabled: true },
         }
+      );
 
-        setFontSize();
-        // 监听字体大小滑动条的变化
-        addEventListener('input', setFontSize);
-
-        // 依據電腦主題切換主題
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.getElementById('toggle-dark-mode').checked = false;
-            document.documentElement.setAttribute('data-theme', 'dark');
-            schemaEditor.updateOptions({ theme: 'vs-dark' });
-            queryEditor.updateOptions({ theme: 'vs-dark' });
+      queryEditor = monaco.editor.create(
+        document.getElementById("query-editor"),
+        {
+          value: defaultQuerySql,
+          language: "sql",
+          theme: "vs",
+          lineNumbers: "on",
+          lineNumbersMinChars: 3,
+          scrollBeyondLastLine: false,
+          readOnly: false,
+          quickSuggestions: true, // 确保启用快速建议
+          suggestOnTriggerCharacters: true,
+          automaticLayout: true, // Enable automatic layout
+          wordWrap: "on", // 啟用自動換行
+          scrollbar: {
+            alwaysConsumeMouseWheel: false,
+          },
+          minimap: { enabled: true },
         }
+      );
+
+      function setFontSize() {
+        let fontSlider = document.getElementById("fontSlider");
+        let newSize = fontSlider.value + "px";
+        let nowFontSize = document.getElementById("nowFontSize");
+        nowFontSize.textContent = newSize;
+        if (schemaEditor && queryEditor) {
+          schemaEditor.updateOptions({ fontSize: parseInt(fontSlider.value) });
+          queryEditor.updateOptions({ fontSize: parseInt(fontSlider.value) });
+        }
+      }
+
+      setFontSize();
+      // 监听字体大小滑动条的变化
+      addEventListener("input", setFontSize);
+
+      // 依據電腦主題切換主題
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.getElementById("toggle-dark-mode").checked = false;
+        document.documentElement.setAttribute("data-theme", "dark");
+        schemaEditor.updateOptions({ theme: "vs-dark" });
+        queryEditor.updateOptions({ theme: "vs-dark" });
+      }
     });
 
-    document.getElementById('miniMap').addEventListener('change', function (event) {
+    document
+      .getElementById("miniMap")
+      .addEventListener("change", function (event) {
         schemaEditor.updateOptions({
-            minimap: { enabled: event.target.checked }
+          minimap: { enabled: event.target.checked },
         });
         queryEditor.updateOptions({
-            minimap: { enabled: event.target.checked }
+          minimap: { enabled: event.target.checked },
         });
-    });
+      });
 
-    document.getElementById('toggle-dark-mode').addEventListener('change', function (event) {
-        const theme = event.target.checked ? 'vs' : 'vs-dark';
+    document
+      .getElementById("toggle-dark-mode")
+      .addEventListener("change", function (event) {
+        const theme = event.target.checked ? "vs" : "vs-dark";
         schemaEditor.updateOptions({ theme: theme });
         queryEditor.updateOptions({ theme: theme });
-        if (document.documentElement.getAttribute('data-theme') === 'dark') {
-            document.documentElement.removeAttribute('data-theme');
+        if (document.documentElement.getAttribute("data-theme") === "dark") {
+          document.documentElement.removeAttribute("data-theme");
         } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute("data-theme", "dark");
         }
-    });
+      });
 
-    const copySchemaBtn = document.getElementById('copySchemaBtn');
-    const copyQueryBtn = document.getElementById('copyQueryBtn');
-    copySchemaBtn.addEventListener('click', function () {
-        navigator.clipboard.writeText(schemaEditor.getValue())
-            .then(() => showSnackbar('Schema SQL已複製到剪貼簿'))
-            .catch(err => alert('複製失敗: ', err));
+    const copySchemaBtn = document.getElementById("copySchemaBtn");
+    const copyQueryBtn = document.getElementById("copyQueryBtn");
+    copySchemaBtn.addEventListener("click", function () {
+      navigator.clipboard
+        .writeText(schemaEditor.getValue())
+        .then(() => showSnackbar("Schema SQL已複製到剪貼簿"))
+        .catch((err) => alert("複製失敗: ", err));
     });
-    copyQueryBtn.addEventListener('click', function () {
-        navigator.clipboard.writeText(queryEditor.getValue())
-            .then(() => showSnackbar('Query SQL已複製到剪貼簿'))
-            .catch(err => alert('複製失敗: ', err));
+    copyQueryBtn.addEventListener("click", function () {
+      navigator.clipboard
+        .writeText(queryEditor.getValue())
+        .then(() => showSnackbar("Query SQL已複製到剪貼簿"))
+        .catch((err) => alert("複製失敗: ", err));
     });
 
     // 如果未暫存但重整頁面，跳出確認視窗
-    window.addEventListener('beforeunload', function (e) {
-        const schemaSql = schemaEditor.getValue();
-        const querySql = queryEditor.getValue();
-        const cookieData = getCookie('dbPlayground');
-        const storageData = {
-            schemaSql: localStorage.getItem('schemaSql'),
-            querySql: localStorage.getItem('querySql')
-        };
-        const data = {
-            schemaSql: schemaSql,
-            querySql: querySql
-        };
-        if ((!cookieData || data.querySql != cookieData.querySql || data.schemaSql != cookieData.schemaSql) && (!storageData || data.querySql != storageData.querySql || data.schemaSql != storageData.schemaSql)) {
-            e.preventDefault();
-            e.returnValue = '';
-        }
+    window.addEventListener("beforeunload", function (e) {
+      const schemaSql = schemaEditor.getValue();
+      const querySql = queryEditor.getValue();
+      const cookieData = getCookie("dbPlayground");
+      const storageData = {
+        schemaSql: localStorage.getItem("schemaSql"),
+        querySql: localStorage.getItem("querySql"),
+      };
+      const data = {
+        schemaSql: schemaSql,
+        querySql: querySql,
+      };
+      if (
+        (!cookieData ||
+          data.querySql != cookieData.querySql ||
+          data.schemaSql != cookieData.schemaSql) &&
+        (!storageData ||
+          data.querySql != storageData.querySql ||
+          data.schemaSql != storageData.schemaSql)
+      ) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
     });
 
-    const tempSave_btn = document.getElementById('tempSave-btn');
-    tempSave_btn.addEventListener('click', function () {
-        const schemaSql = schemaEditor.getValue();
-        const querySql = queryEditor.getValue();
-        localStorage.setItem('schemaSql', schemaSql);
-        localStorage.setItem('querySql', querySql);
-        
-        alert('已暫存至瀏覽器\n下次載入本頁時將自動帶入。\n\n此功能使用 Local Storage，幾乎無期限或長度限制🤗！');
+    const tempSave_btn = document.getElementById("tempSave-btn");
+    tempSave_btn.addEventListener("click", function () {
+      const schemaSql = schemaEditor.getValue();
+      const querySql = queryEditor.getValue();
+      localStorage.setItem("schemaSql", schemaSql);
+      localStorage.setItem("querySql", querySql);
+
+      alert(
+        "已暫存至瀏覽器\n下次載入本頁時將自動帶入。\n\n此功能使用 Local Storage，幾乎無期限或長度限制🤗！"
+      );
     });
 
-    const delTempSave_btn = document.getElementById('delTempSave-btn');
-    delTempSave_btn.addEventListener('click', function () {
-        // 顯示對話框確認是否刪除
-        const confirmDelete = confirm('確定要刪除暫存嗎？');
-        if (confirmDelete) {
-            dropCookie('dbPlayground');
-            alert('已刪除暫存');
-            localStorage.removeItem('schemaSql');
-            localStorage.removeItem('querySql');
-        }
+    const delTempSave_btn = document.getElementById("delTempSave-btn");
+    delTempSave_btn.addEventListener("click", function () {
+      // 顯示對話框確認是否刪除
+      const confirmDelete = confirm("確定要刪除暫存嗎？");
+      if (confirmDelete) {
+        dropCookie("dbPlayground");
+        alert("已刪除暫存");
+        localStorage.removeItem("schemaSql");
+        localStorage.removeItem("querySql");
+      }
     });
-</script>
+  </script>
 
-<!-- 匯入匯出功能 -->
-<script>
-    const importSQL_btn = document.getElementById('importSQL-btn');
-    const exportSQL_btn = document.getElementById('exportSQL-btn');
+  <!-- 匯入匯出功能 -->
+  <script>
+    const importSQL_btn = document.getElementById("importSQL-btn");
+    const exportSQL_btn = document.getElementById("exportSQL-btn");
 
     function isQuerySQL(sql) {
-        const lowerSql = sql.trim().toLowerCase();
-        return lowerSql.startsWith('select') || lowerSql.startsWith('show');
+      const lowerSql = sql.trim().toLowerCase();
+      return lowerSql.startsWith("select") || lowerSql.startsWith("show");
     }
 
-    document.getElementById('importSQL-btn').addEventListener('click', function () {
-        const input = document.createElement('input');
-        input.type = 'file';
+    document
+      .getElementById("importSQL-btn")
+      .addEventListener("click", function () {
+        const input = document.createElement("input");
+        input.type = "file";
         input.accept = ".sql,.txt";
         input.onchange = function (e) {
-            const file = e.target.files[0];
-            // 拒絕非.sql或.txt檔
-            if (!file.name.endsWith('.sql') && !file.name.endsWith('.txt')) {
-                alert('請選擇.sql或.txt檔');
+          const file = e.target.files[0];
+          // 拒絕非.sql或.txt檔
+          if (!file.name.endsWith(".sql") && !file.name.endsWith(".txt")) {
+            alert("請選擇.sql或.txt檔");
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function () {
+            const sql = reader.result;
+            const lines = sql.split("\n");
+            let schemaSQL = "";
+            let querySQL = "";
+            let currentSQL = "";
+            let isQuery = false;
+            let previousIsQuery = null;
+            let commentsBuffer = "";
+            let emptyLinesBuffer = "";
+
+            lines.forEach((line) => {
+              const trimmedLine = line.trim();
+
+              // 處理註釋
+              if (
+                trimmedLine.startsWith("--") ||
+                trimmedLine.startsWith("/*") ||
+                trimmedLine.endsWith("*/")
+              ) {
+                commentsBuffer += line + "\n";
                 return;
-            }
-            const reader = new FileReader();
-            reader.onload = function () {
-                const sql = reader.result;
-                const lines = sql.split('\n');
-                let schemaSQL = '';
-                let querySQL = '';
-                let currentSQL = '';
-                let isQuery = false;
-                let previousIsQuery = null;
-                let commentsBuffer = '';
-                let emptyLinesBuffer = '';
+              }
 
-                lines.forEach(line => {
-                    const trimmedLine = line.trim();
+              // 當前行為空行
+              if (trimmedLine === "") {
+                emptyLinesBuffer += line + "\n";
+                return;
+              }
 
-                    // 處理註釋
-                    if (trimmedLine.startsWith('--') || trimmedLine.startsWith('/*') || trimmedLine.endsWith('*/')) {
-                        commentsBuffer += line + '\n';
-                        return;
-                    }
-
-                    // 當前行為空行
-                    if (trimmedLine === '') {
-                        emptyLinesBuffer += line + '\n';
-                        return;
-                    }
-
-                    // 遇到以;結尾的指令
-                    if (trimmedLine.endsWith(';')) {
-                        currentSQL += line + '\n';
-                        if (isQuerySQL(currentSQL)) {
-                            querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
-                            previousIsQuery = true;
-                        } else {
-                            schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
-                            previousIsQuery = false;
-                        }
-                        currentSQL = '';
-                        commentsBuffer = '';
-                        emptyLinesBuffer = '';
-                    } else {
-                        currentSQL += line + '\n';
-                    }
-                });
-
-                // 處理剩餘的註釋和空行
-                if (commentsBuffer || emptyLinesBuffer || currentSQL) {
-                    if (previousIsQuery === true) {
-                        querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
-                    } else {
-                        schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
-                    }
+              // 遇到以;結尾的指令
+              if (trimmedLine.endsWith(";")) {
+                currentSQL += line + "\n";
+                if (isQuerySQL(currentSQL)) {
+                  querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
+                  previousIsQuery = true;
+                } else {
+                  schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
+                  previousIsQuery = false;
                 }
+                currentSQL = "";
+                commentsBuffer = "";
+                emptyLinesBuffer = "";
+              } else {
+                currentSQL += line + "\n";
+              }
+            });
 
-                if (!confirm("編輯區未儲存的SQL指令將被覆蓋！\n確定匯入檔案嗎？")) return;
-                schemaEditor.setValue(schemaSQL.trim());
-                queryEditor.setValue(querySQL.trim());
-                showSnackbar(`已匯入 ${file.name}<br><br>共取得 ${lines.length} 行 SQL 指令`);
-            };
-            reader.readAsText(file);
+            // 處理剩餘的註釋和空行
+            if (commentsBuffer || emptyLinesBuffer || currentSQL) {
+              if (previousIsQuery === true) {
+                querySQL += emptyLinesBuffer + commentsBuffer + currentSQL;
+              } else {
+                schemaSQL += emptyLinesBuffer + commentsBuffer + currentSQL;
+              }
+            }
+
+            if (!confirm("編輯區未儲存的SQL指令將被覆蓋！\n確定匯入檔案嗎？"))
+              return;
+            schemaEditor.setValue(schemaSQL.trim());
+            queryEditor.setValue(querySQL.trim());
+            showSnackbar(
+              `已匯入 ${file.name}<br><br>共取得 ${lines.length} 行 SQL 指令`
+            );
+          };
+          reader.readAsText(file);
         };
         input.click();
-    });
+      });
 
-    exportSQL_btn.addEventListener('click', function () {
-        const schemaSql = schemaEditor.getValue().trim();
-        const querySql = queryEditor.getValue().trim();
-        const sql = schemaSql + '\n' + querySql;
-        const blob = new Blob([sql], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'db-playground.sql';
-        a.click();
-        URL.revokeObjectURL(url);
-        showSnackbar('已匯出 SQL 檔至下載資料夾');
+    exportSQL_btn.addEventListener("click", function () {
+      const schemaSql = schemaEditor.getValue().trim();
+      const querySql = queryEditor.getValue().trim();
+      const sql = schemaSql + "\n" + querySql;
+      const blob = new Blob([sql], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "db-playground.sql";
+      a.click();
+      URL.revokeObjectURL(url);
+      showSnackbar("已匯出 SQL 檔至下載資料夾");
     });
-</script>
+  </script>
 
-<script>
+  <script>
     function removeSqlComments(sql) {
-        // 移除单行注释
-        sql = sql.replace(/--.*$/gm, '');
+      // 移除单行注释
+      sql = sql.replace(/--.*$/gm, "");
 
-        // 移除多行注释
-        sql = sql.replace(/\/\*[\s\S]*?\*\//gm, '');
+      // 移除多行注释
+      sql = sql.replace(/\/\*[\s\S]*?\*\//gm, "");
 
-        return sql.trim();
+      return sql.trim();
     }
-
 
     function removeFirstLastQuotes(s) {
-        if (s.length > 1 && (s[0] === s[s.length - 1]) && (s[0] === '"' || s[0] === "'")) {
-            return s.substring(1, s.length - 1);
-        }
-        return s;
+      if (
+        s.length > 1 &&
+        s[0] === s[s.length - 1] &&
+        (s[0] === '"' || s[0] === "'")
+      ) {
+        return s.substring(1, s.length - 1);
+      }
+      return s;
     }
 
-    let originalResult = '';
+    let originalResult = "";
     function executeQuery() {
-        const runButton = document.getElementById('runButton');
-        const buttonText = document.getElementById('buttonText');
-        const loader = document.getElementById('loader');
-        const resultWindow = document.getElementById('result-window'); // 確保你有一個顯示結果的元素
+      const runButton = document.getElementById("runButton");
+      const buttonText = document.getElementById("buttonText");
+      const loader = document.getElementById("loader");
+      const resultWindow = document.getElementById("result-window"); // 確保你有一個顯示結果的元素
 
-        // 獲取編輯器中的 Schema SQL 和 Query SQL 語句
-        const schemaSql = removeSqlComments(schemaEditor.getValue());
-        const querySql = removeSqlComments(queryEditor.getValue());
+      // 獲取編輯器中的 Schema SQL 和 Query SQL 語句
+      const schemaSql = removeSqlComments(schemaEditor.getValue());
+      const querySql = removeSqlComments(queryEditor.getValue());
 
-        const dbType = document.getElementById('db-type').value;
-        const dbVersion = document.getElementById('db-version').value;
+      const dbType = document.getElementById("db-type").value;
+      const dbVersion = document.getElementById("db-version").value;
 
-        if (dbType == 'Select Database' || dbVersion == 'Select Version') {
-            alert('請選擇資料庫類型和版本');
-            // 回頁面頂端
-            if (!document.getElementById('sidebar').classList.contains('sidebar-expanded')) {
-                document.getElementById('sidebarToggle').click();
-            }
-            // 等待側邊欄展開後再滾動
-            setTimeout(() => {
-                document.getElementById('back-to-top').click();
-            }, 100);
-            return;
+      if (dbType == "Select Database" || dbVersion == "Select Version") {
+        alert("請選擇資料庫類型和版本");
+        // 回頁面頂端
+        if (
+          !document
+            .getElementById("sidebar")
+            .classList.contains("sidebar-expanded")
+        ) {
+          document.getElementById("sidebarToggle").click();
         }
+        // 等待側邊欄展開後再滾動
+        setTimeout(() => {
+          document.getElementById("back-to-top").click();
+        }, 100);
+        return;
+      }
 
-        // 顯示加載器，隱藏文字
-        buttonText.style.display = 'none';
-        loader.style.display = 'inline-block';
-        runButton.classList.add('running-btn');
+      // 顯示加載器，隱藏文字
+      buttonText.style.display = "none";
+      loader.style.display = "inline-block";
+      runButton.classList.add("running-btn");
 
-        // 發送請求到後端
-        fetch('https://server2.hazelnut-paradise.com/db-playground/execute', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                schemaSql: schemaSql,
-                querySql: querySql,
-                dbType: dbType,
-                version: dbVersion
-            }) // 這裡根據需要調整資料庫類型和版本
-        })
-            .then(response => response.json())
-            .then(data => {
-                // 處理響應數據
-                let cleanText = removeFirstLastQuotes(data)
-                originalResult = cleanText;
-                console.log(data);
-                resultWindow.innerHTML = cleanText;
-                (async () => {
-                    function toggleTableRows(table, icon, initial = false) {
-                        let isCollapsed = icon.className === 'table-collapsed-icon';
-                        if (initial) isCollapsed = true;  // 初始狀態始終為折疊
+      // 發送請求到後端
+      fetch("https://server2.hazelnut-paradise.com/db-playground/execute", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          schemaSql: schemaSql,
+          querySql: querySql,
+          dbType: dbType,
+          version: dbVersion,
+        }), // 這裡根據需要調整資料庫類型和版本
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // 處理響應數據
+          let cleanText = removeFirstLastQuotes(data);
+          originalResult = cleanText;
+          console.log(data);
+          resultWindow.innerHTML = cleanText;
+          (async () => {
+            function toggleTableRows(table, icon, initial = false) {
+              let isCollapsed = icon.className === "table-collapsed-icon";
+              if (initial) isCollapsed = true; // 初始狀態始終為折疊
 
-                        for (let i = 1; i < table.rows.length; i++) {
-                            table.rows[i].style.display = isCollapsed ? 'none' : '';
-                        }
-                        icon.className = isCollapsed ? 'table-expanded-icon' : 'table-collapsed-icon';
-                    }
-                    var tables = document.querySelectorAll('table');
-                    tables.forEach(function (table) {
-                        // 在外層包裹一個容器
-                        var container = document.createElement('div');
-                        container.className = 'table-container';
-                        table.parentNode.insertBefore(container, table);
-                        container.appendChild(table);
+              for (let i = 1; i < table.rows.length; i++) {
+                table.rows[i].style.display = isCollapsed ? "none" : "";
+              }
+              icon.className = isCollapsed
+                ? "table-expanded-icon"
+                : "table-collapsed-icon";
+            }
+            var tables = document.querySelectorAll("table");
+            tables.forEach(function (table) {
+              // 在外層包裹一個容器
+              var container = document.createElement("div");
+              container.className = "table-container";
+              table.parentNode.insertBefore(container, table);
+              container.appendChild(table);
 
-                        var rows = table.rows;
+              var rows = table.rows;
 
-                        // 為每一行添加一個新的單元格於最左側
-                        for (let i = 0; i < rows.length; i++) {
-                            let newCell = rows[i].insertCell(0);
-                            if (i === 0) {  // 只有第一行添加指示圖標
-                                let icon = document.createElement('span');
-                                icon.className = 'table-collapsed-icon';  // 初始圖標為折疊
-                                newCell.appendChild(icon);
+              // 為每一行添加一個新的單元格於最左側
+              for (let i = 0; i < rows.length; i++) {
+                let newCell = rows[i].insertCell(0);
+                if (i === 0) {
+                  // 只有第一行添加指示圖標
+                  let icon = document.createElement("span");
+                  icon.className = "table-collapsed-icon"; // 初始圖標為折疊
+                  newCell.appendChild(icon);
 
-                                // 為第一行設定點擊事件
-                                newCell.addEventListener('click', function () {
-                                    toggleTableRows(table, icon);
-                                });
-                            }
-                        }
+                  // 為第一行設定點擊事件
+                  newCell.addEventListener("click", function () {
+                    toggleTableRows(table, icon);
+                  });
+                }
+              }
 
-                        // 初始將除第一行外的所有行設為隱藏
-                        // toggleTableRows(table, table.querySelector('.table-collapsed-icon'), true);
-                    });
-
-                })();
-
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                resultWindow.innerHTML = 'Error: ' + error.message;
-            })
-            .finally(() => {
-                // 查詢完成後恢復按鈕狀態
-                buttonText.style.display = 'inline';
-                loader.style.display = 'none';
-                runButton.classList.remove('running-btn');
-                // 當數據加載完成後，將結果窗口平滑滾動到畫面中
-                resultWindow.scrollIntoView({ behavior: 'smooth' });
+              // 初始將除第一行外的所有行設為隱藏
+              // toggleTableRows(table, table.querySelector('.table-collapsed-icon'), true);
             });
+          })();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          resultWindow.innerHTML = "Error: " + error.message;
+        })
+        .finally(() => {
+          // 查詢完成後恢復按鈕狀態
+          buttonText.style.display = "inline";
+          loader.style.display = "none";
+          runButton.classList.remove("running-btn");
+          // 當數據加載完成後，將結果窗口平滑滾動到畫面中
+          resultWindow.scrollIntoView({ behavior: "smooth" });
+        });
     }
 
-    document.getElementById('copyResultHTMLBtn').addEventListener('click', function () {
+    document
+      .getElementById("copyResultHTMLBtn")
+      .addEventListener("click", function () {
         const resultContent = originalResult;
         const cleanResultContent = removeHtmlComments(resultContent);
-        navigator.clipboard.writeText(cleanResultContent)
-            .then(() => showSnackbar('HTML內容已複製到剪貼簿'))
-            .catch(err => alert('複製失敗: ', err));
-    });
+        navigator.clipboard
+          .writeText(cleanResultContent)
+          .then(() => showSnackbar("HTML內容已複製到剪貼簿"))
+          .catch((err) => alert("複製失敗: ", err));
+      });
 
-    document.getElementById('copyResultMarkdownBtn').addEventListener('click', function () {
+    document
+      .getElementById("copyResultMarkdownBtn")
+      .addEventListener("click", function () {
         const htmlContent = originalResult;
         const cleanResultContent = removeHtmlComments(htmlContent);
         const markdown = convertHtmlToMarkdown(cleanResultContent); // 假设存在这个函数
-        navigator.clipboard.writeText(markdown)
-            .then(() => showSnackbar('Markdown內容已複製到剪貼簿'))
-            .catch(err => alert('複製失敗: ', err));
-    });
+        navigator.clipboard
+          .writeText(markdown)
+          .then(() => showSnackbar("Markdown內容已複製到剪貼簿"))
+          .catch((err) => alert("複製失敗: ", err));
+      });
 
-    document.getElementById('copyResultTextBtn').addEventListener('click', function () {
-        const resultContent = document.getElementById('result-window').innerText;
-        navigator.clipboard.writeText(resultContent)
-            .then(() => showSnackbar('純文字內容已複製到剪貼簿'))
-            .catch(err => alert('複製失敗: ', err));
-    });
+    document
+      .getElementById("copyResultTextBtn")
+      .addEventListener("click", function () {
+        const resultContent =
+          document.getElementById("result-window").innerText;
+        navigator.clipboard
+          .writeText(resultContent)
+          .then(() => showSnackbar("純文字內容已複製到剪貼簿"))
+          .catch((err) => alert("複製失敗: ", err));
+      });
 
     function convertHtmlToMarkdown(html) {
-        // 这里需要一个函数来将HTML转换为Markdown
-        // 您可以使用库如 Turndown (https://github.com/mixmark-io/turndown)
-        // 这里仅为示例，实际应用中请根据需求使用或编写转换逻辑
-        const turndownService = new TurndownService();
-        const gfm = turndownPluginGfm.gfm
-        turndownService.use(gfm);
-        return turndownService.turndown(html);
+      // 这里需要一个函数来将HTML转换为Markdown
+      // 您可以使用库如 Turndown (https://github.com/mixmark-io/turndown)
+      // 这里仅为示例，实际应用中请根据需求使用或编写转换逻辑
+      const turndownService = new TurndownService();
+      const gfm = turndownPluginGfm.gfm;
+      turndownService.use(gfm);
+      return turndownService.turndown(html);
     }
 
     function removeHtmlComments(html) {
-        // 使用 RegExp 構造函數來創建正則表達式
-        let regex = new RegExp('<!--[\\s\\S]*?-->', 'g');
-        let cleanHTML = html.replace(regex, '');
-        return cleanHTML;
+      // 使用 RegExp 構造函數來創建正則表達式
+      let regex = new RegExp("<!--[\\s\\S]*?-->", "g");
+      let cleanHTML = html.replace(regex, "");
+      return cleanHTML;
     }
-</script>
+  </script>
 
-<!-- HazelPoints -->
-<script>
-    const getMoreHazelPoints = document.getElementById('getMoreHazelPoints');
-    getMoreHazelPoints.addEventListener('click', function () {
-        alert('HazelPoints 及相關功能尚在開發中！');
+  <!-- HazelPoints -->
+  <script>
+    const getMoreHazelPoints = document.getElementById("getMoreHazelPoints");
+    getMoreHazelPoints.addEventListener("click", function () {
+      alert("HazelPoints 及相關功能尚在開發中！");
     });
-</script>
+  </script>
 
-<!-- CSV to SQL -->
-<script>
+  <!-- CSV to SQL -->
+  <script>
     function showCSVtoSQLwindow() {
-        if (ifLogin) {
-            document.getElementById('toSQL_window').style.display = 'block';
-        } else {
-            if (confirm('此功能需要登入，立即登入？')) {
-                window.location.href = 'https://hazelnut-paradise.com/account/login?redirect=https://apps.hazelnut-paradise.com/db-playground';
-            }
+      if (ifLogin) {
+        document.getElementById("toSQL_window").style.display = "block";
+      } else {
+        if (confirm("此功能需要登入，立即登入？")) {
+          window.location.href =
+            "https://hazelnut-paradise.com/account/login?redirect=https://apps.hazelnut-paradise.com/db-playground";
         }
-
+      }
     }
 
     function toSQL_toggleInputType() {
-        const fileInputContainer = document.getElementById('toSQL_fileInputContainer');
-        const textInputContainer = document.getElementById('toSQL_textInputContainer');
-        const inputType = document.querySelector('input[name="inputType"]:checked').value;
+      const fileInputContainer = document.getElementById(
+        "toSQL_fileInputContainer"
+      );
+      const textInputContainer = document.getElementById(
+        "toSQL_textInputContainer"
+      );
+      const inputType = document.querySelector(
+        'input[name="inputType"]:checked'
+      ).value;
 
-        if (inputType === 'file') {
-            fileInputContainer.style.display = '';
-            textInputContainer.style.display = 'none';
-        } else {
-            fileInputContainer.style.display = 'none';
-            textInputContainer.style.display = '';
-        }
+      if (inputType === "file") {
+        fileInputContainer.style.display = "";
+        textInputContainer.style.display = "none";
+      } else {
+        fileInputContainer.style.display = "none";
+        textInputContainer.style.display = "";
+      }
     }
 
     async function toSQL_uploadFile() {
-        const toSQL_loader = document.getElementById('toSQL_loader');
-        toSQL_loader.style.display = 'inline-block';
-        const tableName = document.getElementById('toSQL_tableName').value.trim();
-        if (!tableName) {
-            alert("Please enter a table name.");
-            toSQL_loader.style.display = 'none';
-            return;
+      const toSQL_loader = document.getElementById("toSQL_loader");
+      toSQL_loader.style.display = "inline-block";
+      const tableName = document.getElementById("toSQL_tableName").value.trim();
+      if (!tableName) {
+        alert("Please enter a table name.");
+        toSQL_loader.style.display = "none";
+        return;
+      }
+
+      const inputType = document.querySelector(
+        'input[name="inputType"]:checked'
+      ).value;
+      let formData = new FormData();
+
+      if (inputType === "file") {
+        const fileInput = document.getElementById("toSQL_csvFile");
+        if (!fileInput.files.length) {
+          alert("Please select a CSV file.");
+          toSQL_loader.style.display = "none";
+          return;
         }
-
-        const inputType = document.querySelector('input[name="inputType"]:checked').value;
-        let formData = new FormData();
-
-        if (inputType === 'file') {
-            const fileInput = document.getElementById('toSQL_csvFile');
-            if (!fileInput.files.length) {
-                alert("Please select a CSV file.");
-                toSQL_loader.style.display = 'none';
-                return;
-            }
-            formData.append("file", fileInput.files[0]);
-        } else {
-            const csvText = document.getElementById('toSQL_csvText').value.trim();
-            if (!csvText) {
-                alert("Please enter CSV data.");
-                toSQL_loader.style.display = 'none';
-                return;
-            }
-            const blob = new Blob([csvText], { type: 'text/csv' });
-            formData.append("file", blob, "input.csv");
+        formData.append("file", fileInput.files[0]);
+      } else {
+        const csvText = document.getElementById("toSQL_csvText").value.trim();
+        if (!csvText) {
+          alert("Please enter CSV data.");
+          toSQL_loader.style.display = "none";
+          return;
         }
+        const blob = new Blob([csvText], { type: "text/csv" });
+        formData.append("file", blob, "input.csv");
+      }
 
-        formData.append("table_name", tableName);
+      formData.append("table_name", tableName);
 
-        const response = await fetch('https://server2.hazelnut-paradise.com/db-playground/toSQL', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            document.getElementById('toSQL_sqlResult').textContent = result.sql;
-        } else {
-            const error = await response.json();
-            alert("Failed to convert the CSV file: " + error.message);
+      const response = await fetch(
+        "https://server2.hazelnut-paradise.com/db-playground/toSQL",
+        {
+          method: "POST",
+          body: formData,
         }
+      );
 
-        toSQL_loader.style.display = 'none';
+      if (response.ok) {
+        const result = await response.json();
+        document.getElementById("toSQL_sqlResult").textContent = result.sql;
+      } else {
+        const error = await response.json();
+        alert("Failed to convert the CSV file: " + error.message);
+      }
+
+      toSQL_loader.style.display = "none";
     }
 
     function copyToClipboard(elementId) {
-        const element = document.getElementById(elementId);
-        const range = document.createRange();
-        range.selectNode(element);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand("copy");
-        window.getSelection().removeAllRanges();
-        showSnackbar("SQL copied to clipboard.");
+      const element = document.getElementById(elementId);
+      const range = document.createRange();
+      range.selectNode(element);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges();
+      showSnackbar("SQL copied to clipboard.");
     }
 
     function toSQL_closeWindows() {
-        document.getElementById('toSQL_window').style.display = 'none';
+      document.getElementById("toSQL_window").style.display = "none";
     }
 
     async function toSQL_insertToSchemaSQL() {
-        const sql = document.getElementById('toSQL_sqlResult').textContent;
-        if (!sql) {
-            alert("No SQL to insert.");
-            return;
-        }
+      const sql = document.getElementById("toSQL_sqlResult").textContent;
+      if (!sql) {
+        alert("No SQL to insert.");
+        return;
+      }
 
-        const text = '\n' + sql;
-        insertTextAtEnd(text)
-        // Function to insert text at the end of the document
-        function insertTextAtEnd(text) {
-            var lastLine = schemaEditor.getModel().getLineCount();
-            var lastColumn = schemaEditor.getModel().getLineMaxColumn(lastLine);
-            var range = new monaco.Range(lastLine, lastColumn, lastLine, lastColumn);
-            var id = { major: 1, minor: 1 };
-            var op = { identifier: id, range: range, text: text, forceMoveMarkers: true };
-            schemaEditor.executeEdits("my-source", [op]);
-        }
-        toSQL_closeWindows();
+      const text = "\n" + sql;
+      insertTextAtEnd(text);
+      // Function to insert text at the end of the document
+      function insertTextAtEnd(text) {
+        var lastLine = schemaEditor.getModel().getLineCount();
+        var lastColumn = schemaEditor.getModel().getLineMaxColumn(lastLine);
+        var range = new monaco.Range(
+          lastLine,
+          lastColumn,
+          lastLine,
+          lastColumn
+        );
+        var id = { major: 1, minor: 1 };
+        var op = {
+          identifier: id,
+          range: range,
+          text: text,
+          forceMoveMarkers: true,
+        };
+        schemaEditor.executeEdits("my-source", [op]);
+      }
+      toSQL_closeWindows();
     }
 
     function toSQL_clear() {
-        document.getElementById('toSQL_sqlResult').textContent = '';
-        // 清除文件選擇
-        document.getElementById('toSQL_csvFile').value = '';
-        // 清除文本輸入
-        document.getElementById('toSQL_csvText').value = '';
-        // 清除表名
-        document.getElementById('toSQL_tableName').value = '';
+      document.getElementById("toSQL_sqlResult").textContent = "";
+      // 清除文件選擇
+      document.getElementById("toSQL_csvFile").value = "";
+      // 清除文本輸入
+      document.getElementById("toSQL_csvText").value = "";
+      // 清除表名
+      document.getElementById("toSQL_tableName").value = "";
     }
-</script>
-
+  </script>
 </html>
