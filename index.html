@@ -609,8 +609,8 @@
                                 <option value="mysql">MySQL</option>
                                 <option value="postgres">PostgreSQL</option>
                                 <!-- <option value="SQLite">SQLite</option> -->
-                                <!-- <option value="Oracle">Oracle</option>
-                                <option value="SQLServer">SQLServer</option> -->
+                                <!-- <option value="Oracle">Oracle</option> -->
+                                <option value="mssql">MS SQL Server</option>
                             </select>
                             <select class="form-select mb-2" aria-label="Select Version" id="db-version">
                                 <label for="db-version">Select Version</label>
@@ -628,6 +628,9 @@
                                             break;
                                         case 'postgres':
                                             options = ['16', '15', '14', '13', '12', '11', '10', '9.6', '9.5', '9.4'];
+                                            break;
+                                        case 'mssql':
+                                            options = ['2022', '2019'];
                                             break;
                                         default:
                                             options = ['Select Version'];
