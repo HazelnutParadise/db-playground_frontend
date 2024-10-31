@@ -589,6 +589,43 @@
         content: "▶";
       }
 
+      #resizer {
+      width: 6px;
+      height: 650px;
+      background-color: #b3c0c8; /* 柔和的灰藍色 */
+      cursor: col-resize;
+      border-radius: 4px; /* 圓角效果 */
+      border-left: 1px solid #a0aeb8;
+      border-right: 1px solid #a0aeb8;
+      align-self: center;
+    }
+
+    #resizer:hover {
+      min-width: 15px !important;
+      border-radius: 0;
+      background-color: #8fa1ad; /* 滑動條懸停效果 */
+    }
+
+    #resizer.resizing {
+      border-radius: 0;
+      width: 15px;
+      background-color: #6e7f8a; /* 拖曳時效果 */
+    }
+
+
+    [data-theme="dark"] #resizer {
+      background-color: #4b5563; /* 柔和深灰色 */
+    }
+
+    [data-theme="dark"] #resizer:hover {
+      background-color: #374151; /* 拖曳前稍深 */
+    }
+
+    [data-theme="dark"] #resizer.resizing {
+      background-color: #2d3748; /* 拖曳時更深 */
+    }
+
+
       @media (max-width: 22cm
             /*780px*/) {
         #editWindows {
@@ -605,6 +642,10 @@
         .small-button {
           max-height: 35px;
           height: 35px;
+        }
+
+        #resizer {
+          display: none;
         }
       }
 
@@ -905,6 +946,7 @@
               </div>
               <div id="schema-editor"></div>
             </div>
+            <div id="resizer"></div>
             <div class="panel editor" id="editor2">
               <div class="label">
                 <h5>Query SQL</h5>
@@ -1865,5 +1907,65 @@
       // 清除表名
       document.getElementById("toSQL_tableName").value = "";
     }
+
+    // 添加分隔條拖動功能
+    const resizer = document.getElementById('resizer');
+    const editor1 = document.getElementById('editor1');
+    const editor2 = document.getElementById('editor2');
+
+    let isResizing = false;
+    let startX;
+    let startWidth;
+
+    resizer.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      startX = e.pageX;
+      startWidth = editor1.offsetWidth;
+
+      // 防止選中文本
+      e.preventDefault();
+      
+      // 添加拖動時的樣式
+      resizer.classList.add('resizing');
+      
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+        // 除拖動時的樣式
+        resizer.classList.remove('resizing');
+        document.removeEventListener('mousemove', handleMouseMove);
+      });
+    });
+
+    function handleMouseMove(e) {
+      if (!isResizing) return;
+
+      const totalWidth = editor1.parentElement.offsetWidth;
+      const minWidth = 200; // 最小寬度
+      
+      let newWidth = startWidth + (e.pageX - startX);
+      
+      // 確保不超過最小和最大寬度
+      newWidth = Math.max(minWidth, Math.min(newWidth, totalWidth - minWidth));
+      
+      const widthPercentage = (newWidth / totalWidth) * 100;
+      editor1.style.width = `${widthPercentage}%`;
+      editor2.style.width = `${100 - widthPercentage}%`;
+    }
+
+    function resetEditorWidths() {
+      const mediaQuery = window.matchMedia('(max-width: 22cm)');
+      if (mediaQuery.matches) {
+        // 在直式排列時重置寬度
+        editor1.style.width = '99%';
+        editor2.style.width = '99%';
+      }
+    }
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', resetEditorWidths);
+
+    // 在頁面加載時初始化寬度
+    document.addEventListener('DOMContentLoaded', resetEditorWidths);
   </script>
 </html>
